@@ -7,22 +7,27 @@ This document outlines how the styling has been organized across the BRL Fronten
 ```
 src/
 ├── assets/
-│   ├── base.css              # Base styles and CSS variables (existing)
-│   ├── main.css              # Main imports and global app styles (updated)
-│   ├── animations.css        # Shared animations (NEW)
-│   └── buttons.css           # Shared button styles (NEW)
+│   ├── base.css               # Base styles and CSS variables
+│   ├── main.css               # Main imports and global app styles
+│   ├── animations.css         # Shared animations
+│   └── buttons.css            # Shared button styles
 ├── components/
-│   ├── LayoutWrapper.vue     # Updated with @import
-│   └── styles/
-│       └── LayoutWrapper.css # Layout-specific styles (NEW)
+│   ├── LayoutWrapper.vue      # Main layout
+│   ├── Footer.vue             # Footer component for main layout
+│   ├── resourcelist/
+│   │   ├── ResourceList.vue   # List of resources for resource view and search results
+│   │   └── ResourceItem.vue   # Item in list of resources
+│   ├── commentlist/
+│   │   ├── CommentList.vue    # List of comments for ResourceView page
+│   │   └── CommentItem.vue    # Item in list of comments
+│   └── navigation/
+│       ├── NavMenu.vue        # Navigation Menu
+│       └── Search.vue         # Search bar component
 └── views/
-    ├── HomeView.vue          # Updated with @imports
-    ├── CreateResourceView.vue # Updated with @imports
-    ├── ViewResourcesView.vue  # Updated with @imports
-    └── styles/
-        ├── HomeView.css              # Home page styles (NEW)
-        ├── CreateResourceView.css    # Create resource form styles (NEW)
-        └── ViewResourcesView.css     # View resources/filtering styles (NEW)
+    ├── HomeView.vue           # View for home page
+    ├── CreateResourceView.vue # View for Create resource page
+    ├── ViewResourcesView.vue  # View for list of resources page
+    └── ResourceView.vue       # View for individual resource with comments, flags, etc.
 ```
 
 ## CSS Files Organization
