@@ -4,16 +4,11 @@ import { ref } from 'vue'
 const formData = ref({
   title: '',
   description: '',
-  category: 'education',
-  tags: '',
   url: '',
   file: null as File | null,
 })
 
-const selectedTags = ref<string[]>([])
 const fileInputRef = ref<HTMLInputElement | null>(null)
-
-const categories = ['education', 'research', 'development', 'documentation', 'other']
 
 const handleSubmit = () => {
   // Validate form
@@ -22,39 +17,23 @@ const handleSubmit = () => {
     return
   }
 
-  console.log('Submitting resource:', {
-    ...formData.value,
-    tags: selectedTags.value,
-  })
+  // TODO: Implement actual API call to submit resource
+  // For now, just log and show success message
 
   // Reset form
   formData.value = {
     title: '',
     description: '',
-    category: 'education',
-    tags: '',
     url: '',
     file: null,
   }
-  selectedTags.value = []
   alert('Resource created successfully!')
-}
-
-const addTag = () => {
-  if (formData.value.tags.trim() && !selectedTags.value.includes(formData.value.tags.trim())) {
-    selectedTags.value.push(formData.value.tags.trim())
-    formData.value.tags = ''
-  }
-}
-
-const removeTag = (tag: string) => {
-  selectedTags.value = selectedTags.value.filter((t) => t !== tag)
 }
 
 const handleFileSelect = (e: Event) => {
   const input = e.target as HTMLInputElement
   if (input.files && input.files.length > 0) {
-    formData.value.file = input.files[0]
+    formData.value.file = input.files[0] || null
   }
 }
 
@@ -65,7 +44,54 @@ const triggerFileInput = () => {
 
 <template>
   <div class="create-resource-view">
-    <!-- Empty create resource page - content can be added here -->
+    <h2>Create New Resource</h2>
+    <form @submit.prevent="handleSubmit" class="resource-form">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input
+          id="title"
+          v-model="formData.title"
+          type="text"
+          placeholder="Enter resource title"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea
+          id="description"
+          v-model="formData.description"
+          placeholder="Enter resource description"
+          rows="4"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input id="url" v-model="formData.url" type="url" placeholder="Enter resource URL" />
+      </div>
+
+      <div class="form-group">
+        <label>File Upload</label>
+        <input
+          ref="fileInputRef"
+          type="file"
+          style="display: none"
+          @change="handleFileSelect"
+        />
+        <button type="button" class="btn-secondary" @click="triggerFileInput">
+          Choose File
+        </button>
+        <span v-if="formData.file" class="file-name">{{ formData.file.name }}</span>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Create Resource</button>
+        <button type="button" class="btn-secondary" @click="handleSubmit">Cancel</button>
+      </div>
+    </form>
   </div>
 </template>
 

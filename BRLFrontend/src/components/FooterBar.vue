@@ -4,15 +4,17 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-section">
-        <h4>Copyright</h4>
-        <p>&copy; 2025 Buzzworthy Resource Locator. All rights reserved.</p>
-      </div>
+      
       <div class="footer-section">
         <h4>Help</h4>
         <ul>
           <li><a href="#faq">FAQ</a></li>
+          <li><a href="#documentation">Documentation</a></li>
         </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Copyright</h4>
+        <p>&copy; 2025 Buzzworthy Resource Locator. All rights reserved.</p>
       </div>
       <div class="footer-section">
         <h4>Contact</h4>
@@ -22,6 +24,7 @@
         </ul>
       </div>
     </div>
+    <hr>
   </footer>
 </template>
 

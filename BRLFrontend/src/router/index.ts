@@ -25,7 +25,9 @@ const router = createRouter({
       beforeEnter: () => {
         // Redirect to Flower SSO (update with actual SSO URL)
         window.location.href = 'https://flower-sso.example.com'
+        return false
       },
+      component: HomeView, // Dummy component, won't be reached
     },
   ],
 })

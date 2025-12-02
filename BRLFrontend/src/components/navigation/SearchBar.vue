@@ -2,18 +2,10 @@
 import { ref } from 'vue'
 
 const searchQuery = ref('')
-const selectedTag = ref('all')
-
-const tags = [
-  { value: 'all', label: 'All Tags' },
-  { value: 'research', label: 'Research' },
-  { value: 'development', label: 'Development' },
-  { value: 'documentation', label: 'Documentation' },
-]
 
 const handleSearch = () => {
-  // Implement search functionality
-  console.log('Search for:', searchQuery.value, 'with tag:', selectedTag.value)
+  // TODO: Implement search functionality
+  // This should emit an event or update a shared state
 }
 
 const handleKeyPress = (event: KeyboardEvent) => {
@@ -32,11 +24,6 @@ const handleKeyPress = (event: KeyboardEvent) => {
       class="search-input"
       @keypress="handleKeyPress"
     />
-    <select v-model="selectedTag" class="tag-select">
-      <option v-for="tag in tags" :key="tag.value" :value="tag.value">
-        {{ tag.label }}
-      </option>
-    </select>
     <button @click="handleSearch" class="search-btn">Search</button>
   </div>
 </template>

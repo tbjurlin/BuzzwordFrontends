@@ -7,11 +7,6 @@
   </div>
 </template>
 
-
-<script setup lang="ts">
-import { RouterLink } from 'vue-router'
-</script>
-
 <style scoped>
 @import '../assets/animations.css';
 @import '../assets/buttons.css';

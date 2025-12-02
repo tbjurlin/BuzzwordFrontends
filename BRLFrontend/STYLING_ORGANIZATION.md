@@ -4,7 +4,7 @@ This document outlines how the styling has been organized across the BRL Fronten
 
 ## Directory Structure
 
-```
+```plaintext
 src/
 ├── assets/
 │   ├── base.css               # Base styles and CSS variables
@@ -35,26 +35,30 @@ src/
 ### Shared/Global Styles (`src/assets/`)
 
 #### `main.css`
+
 - **Purpose**: Main entry point for all styles
-- **Contents**: 
+- **Contents**:
   - Imports from `base.css`, `animations.css`, and `buttons.css`
   - Global app styles for links and color theming
-  
+
 #### `base.css`
+
 - **Purpose**: Base CSS variables and defaults (existing file)
-- **Contents**: 
+- **Contents**:
   - CSS custom properties for colors and theming
   - Global font, box-sizing, and layout resets
 
 #### `animations.css` (NEW)
+
 - **Purpose**: Shared animations used across multiple components
-- **Contents**: 
+- **Contents**:
   - `@keyframes fadeIn` animation
   - `.fade-in` utility class
 
 #### `buttons.css` (NEW)
+
 - **Purpose**: Reusable button styles
-- **Contents**: 
+- **Contents**:
   - `.btn` base button class
   - `.btn-primary` primary button variant
   - `.btn-secondary` secondary button variant
@@ -63,9 +67,10 @@ src/
 ### Component-Specific Styles
 
 #### `src/components/styles/LayoutWrapper.css` (NEW)
+
 - **Purpose**: Styling for the main layout wrapper component
 - **Components Affected**: LayoutWrapper.vue
-- **Contents**: 
+- **Contents**:
   - Header styling (`.header`, `.title`)
   - Navigation bar styling (`.navbar`, `.nav-link`, `.search-*`)
   - Footer styling (`.footer`, `.footer-*`)
@@ -73,18 +78,20 @@ src/
   - Responsive design rules
 
 #### `src/views/styles/HomeView.css` (NEW)
+
 - **Purpose**: Styling for the home/landing page
 - **Components Affected**: HomeView.vue
-- **Contents**: 
+- **Contents**:
   - Welcome section styling (`.welcome-section`)
   - Features grid styling (`.features-section`, `.feature-card`)
   - Quick start section styling (`.quick-start`)
   - Animation and hover effects
 
 #### `src/views/styles/CreateResourceView.css` (NEW)
+
 - **Purpose**: Styling for the create resource form
 - **Components Affected**: CreateResourceView.vue
-- **Contents**: 
+- **Contents**:
   - Form layout and styling (`.resource-form`, `.form-group`, `.form-row`)
   - Input/textarea/select styling and focus states
   - Tag input and management styling (`.tag-*`, `.selected-tags`)
@@ -93,9 +100,10 @@ src/
   - Responsive design rules
 
 #### `src/views/styles/ViewResourcesView.css` (NEW)
+
 - **Purpose**: Styling for the resources viewing and filtering page
 - **Components Affected**: ViewResourcesView.vue
-- **Contents**: 
+- **Contents**:
   - Filter section styling (`.filters-section`, `.filter-group`)
   - Search box styling (`.search-box`, `.search-input`)
   - Tags filter styling (`.tags-filter`, `.tag-filter-btn`)
@@ -110,6 +118,7 @@ src/
 ### In Vue Components
 
 #### LayoutWrapper.vue
+
 ```vue
 <style scoped>
 @import './styles/LayoutWrapper.css';
@@ -117,6 +126,7 @@ src/
 ```
 
 #### HomeView.vue
+
 ```vue
 <style scoped>
 @import '../assets/animations.css';
@@ -126,6 +136,7 @@ src/
 ```
 
 #### CreateResourceView.vue
+
 ```vue
 <style scoped>
 @import '../assets/animations.css';
@@ -135,6 +146,7 @@ src/
 ```
 
 #### ViewResourcesView.vue
+
 ```vue
 <style scoped>
 @import '../assets/animations.css';
@@ -155,13 +167,16 @@ src/
 ## Style Sharing Strategy
 
 ### Shared Across Multiple Pages
+
 - **Animations** (`fadeIn`) → `animations.css`
 - **Button Styles** → `buttons.css`
 
 ### Single Page/Component
+
 - All other styles kept in component-specific CSS files
 
 ### Global/Base
+
 - Base CSS variables, resets, and fundamental styles in `base.css`
 
 ## Adding New Components
@@ -173,6 +188,7 @@ src/
 5. Use scoped styles in the component
 
 Example:
+
 ```vue
 <style scoped>
 @import '../assets/animations.css';

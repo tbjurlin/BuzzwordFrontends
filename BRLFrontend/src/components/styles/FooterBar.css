@@ -11,6 +11,8 @@
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  justify-items: center;
+  align-items: center;
 }
 
 .footer-section h4 {
@@ -43,7 +45,7 @@
 }
 
 .footer-section a:hover {
-  color: #66645d;
+  color: #E6EDFF;
 }
 
 /* Responsive Design */

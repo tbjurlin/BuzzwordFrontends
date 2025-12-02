@@ -16,13 +16,14 @@
 }
 
 .nav-link:hover {
-  color: #ebd059;
+  color: #333;
   border-bottom-color: #ebd059;
 }
 
 .nav-link.active {
-  color: #ebd059;
+  color: #333;
   border-bottom-color: #ebd059;
+  font-weight: bold;
 }
 
 .nav-menu {
