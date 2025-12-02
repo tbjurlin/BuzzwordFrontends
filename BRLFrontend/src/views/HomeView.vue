@@ -1,9 +1,20 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="home-view">
+    <!-- Empty home page - content can be added here -->
+  </div>
 </template>
+
+
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
+
+<style scoped>
+@import '../assets/animations.css';
+@import '../assets/buttons.css';
+@import './styles/HomeView.css';
+</style>
+
