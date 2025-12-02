@@ -1,13 +1,3 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
-  gap: 1rem;
-}
 
 .nav-left {
   display: flex;
@@ -35,7 +25,18 @@
   border-bottom-color: #ebd059;
 }
 
-.nav-right {
+.nav-menu {
   display: flex;
+  gap: 2rem;
   align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
 }

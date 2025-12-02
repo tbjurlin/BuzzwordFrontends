@@ -52,3 +52,21 @@
 .search-btn:hover {
   background-color: #764ba2;
 }
+/* Responsive Design */
+@media (max-width: 768px) {
+
+  .search-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .search-input {
+    width: 150px;
+  }
+
+  .search-container {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

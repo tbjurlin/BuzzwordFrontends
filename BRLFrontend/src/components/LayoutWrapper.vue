@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FooterBar from './FooterBar.vue';
 import NavMenu from './navigation/NavMenu.vue'
 import SearchBar from './navigation/SearchBar.vue'
 </script>
@@ -15,9 +16,7 @@ import SearchBar from './navigation/SearchBar.vue'
       <NavMenu/>
 
       <!-- Search Section on the Right -->
-      <div class="nav-right">
-        <SearchBar/>
-      </div>
+      <SearchBar/>
     </nav>
 
     <!-- Main Content -->
@@ -26,27 +25,7 @@ import SearchBar from './navigation/SearchBar.vue'
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>Copyright</h4>
-          <p>&copy; 2025 Buzzworthy Resource Locator. All rights reserved.</p>
-        </div>
-        <div class="footer-section">
-          <h4>Help</h4>
-          <ul>
-            <li><a href="#faq">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:support@brl.com">Email Support</a></li>
-            <li><a href="#contact-form">Contact Form</a></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
+    <FooterBar/>
   </div>
 </template>
 
