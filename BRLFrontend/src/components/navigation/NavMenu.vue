@@ -11,6 +11,9 @@ import { RouterLink } from 'vue-router'
     <RouterLink to="/view-resources" class="nav-link" active-class="active">
       View Resources
     </RouterLink>
+    <RouterLink to="/resource" class="nav-link" active-class="active">
+      Temp link to resource
+    </RouterLink>
     <a href="https://flower-sso.example.com" class="nav-link" target="_blank">
       Flower SSO
     </a>
