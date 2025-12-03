@@ -10,12 +10,24 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      path: '/create-resource',
+      name: 'createResource',
+      component: () => import('../views/CreateResourceView.vue'),
+    },
+    {
+      path: '/view-resources',
+      name: 'viewResources',
+      component: () => import('../views/ViewResourcesView.vue'),
+    },
+    {
+      path: '/flower-sso',
+      name: 'flowerSSO',
+      beforeEnter: () => {
+        // Redirect to Flower SSO (update with actual SSO URL)
+        window.location.href = 'https://flower-sso.example.com'
+        return false
+      },
+      component: HomeView, // Dummy component, won't be reached
     },
   ],
 })
