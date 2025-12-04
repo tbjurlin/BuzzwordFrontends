@@ -15,11 +15,11 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="upvote-container">
+  <div :class="['upvote-container', props.isUpvoted ? 'is-upvoted' : '']">
     <button class="upvote-button" @click="$emit('upvoted')">
       <VueFeather type="arrow-up" class="upvote-icon"/>
     </button>
-    {{ $props.count }}
+    <p>{{ $props.count }}</p>
   </div>
 </template>
 

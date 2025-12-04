@@ -1,43 +1,50 @@
 <script setup lang="ts">
 import Upvote from '@/components/Upvote.vue';
 import VueFeather from 'vue-feather';
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import type { Resource } from '@/types';
+import { useRoute } from 'vue-router';
+import { retrieveResource } from '@/backend_calls';
 
-const resource = {
-  title: 'Default resource',
-  description: 'Wow! What a description!',
-  url: 'https://www.example.com',
-  creatorFirstName: 'Ben',
-  creatorLastName: 'Edens',
-  creationDate: '12/12/12',
-  creatorID: 1,
-  comments: ["comment", "comment"],
-  upvoteCount: 245,
-  upvotedByCurrentUser: true,
-}
-
-const upvoteCount = ref(resource.upvoteCount);
-const userUpvoted = ref(resource.upvotedByCurrentUser);
+const resource = ref<Resource>();
+const route = useRoute();
 
 const handleUpvote = () => {
-    if (userUpvoted.value) {
-        upvoteCount.value -= 1;
-    } else {
-        upvoteCount.value += 1;
+    if (resource.value != undefined) { 
+        if (resource.value.upvotedByCurrentUser) {
+            // delete upvote api call
+            resource.value.upvoteCount -= 1;
+        } else {
+            // add upvote api call
+            resource.value.upvoteCount += 1;
+        }
+        resource.value.upvotedByCurrentUser = !resource.value.upvotedByCurrentUser;
     }
-    userUpvoted.value = !userUpvoted.value;
 }
+
+watch(
+    () => route.params.id,
+    (newId, _) => {
+        resource.value = retrieveResource(Number(newId));
+    }
+)
+
+onMounted(() => {
+    resource.value = retrieveResource(Number(route.params.id))
+})
 </script>
 
 <template>
-  <div class="resource-view">
+  <div v-if="resource != undefined" class="resource-view">
     <h2 class="resource-title">{{ resource.title }}</h2>
     <div class="resource-card">
-        <p class="resource-url">Link to resource: <a class="resource-url-link" :href="resource.url">{{ resource.url }}</a></p>
-        <p class="resource-metadata">Creator: {{ resource.creatorFirstName }} {{ resource.creatorLastName }} | Created on: {{ resource.creationDate }}</p>
+        <div class="resource-metadata">
+            <p class="resource-url">Link to resource: <a class="resource-url-link" :href="resource.url">{{ resource.url }}</a></p>
+            <p class="resource-creator">Creator: {{ resource.firstName }} {{ resource.lastName }}</p><p class="resource-date">Created on: {{ resource.creationDate }}</p>
+        </div>
         <p class="resource-description">{{ resource.description }}</p>
         <div class="resource-action-row">
-            <Upvote class="resource-action-item" :is-upvoted="userUpvoted" :count="upvoteCount" @upvoted="handleUpvote"/>
+            <Upvote class="resource-action-item" :is-upvoted="resource.upvotedByCurrentUser" :count="resource.upvoteCount" @upvoted="handleUpvote"/>
             <div class="resource-action-item resource-comment-action">
                 <button class="resource-comment-button">
                     <VueFeather type="message-square"/>
@@ -54,6 +61,7 @@ const handleUpvote = () => {
     </div>
     <!-- <CommentList comments=resource.comments> -->
   </div>
+  <p v-else>Resource not available</p>
 </template>
 
 <style scoped>

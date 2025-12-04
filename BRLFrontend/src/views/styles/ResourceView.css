@@ -1,5 +1,39 @@
 h2 {
-    color: #333;
+    color: var(--color-heading);
     margin-bottom: 2rem;
     font-size: 1.8rem;
+}
+
+.resource-card {
+    background-color: var(--color-background);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.resource-action-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.resource-action-item {
+    background-color: var(--color-background-soft);
+    border-radius: 8px;
+    padding: 0.3rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resource-action-item button {
+    background-color: var(--color-background-soft);
+    border: 2px solid var(--color-background-soft);
+    border-radius: 6px;
+}
+
+.resource-action-item button:hover {
+    border-color: var(--color-border)
 }
