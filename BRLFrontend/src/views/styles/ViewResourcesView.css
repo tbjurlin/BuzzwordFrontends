@@ -5,7 +5,7 @@
 }
 
 h2 {
-  color: #333;
+  color: var(--color-heading);
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
