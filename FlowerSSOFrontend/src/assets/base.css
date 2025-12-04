@@ -1,29 +1,49 @@
 /* color palette from <https://github.com/vuejs/theme> */
+/*TODO
+ * Change all of these variables so instead of "divider-light-1" it's something like "banner"
+ */
+
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  /*--theme-white: #ffffff;
+  --theme-softwhite: #f8f8f8;
+  --theme-mutedwhite: #f2f2f2;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --theme-black: #181818;
+  --theme-soft-black: #222222;
+  --theme-muted-black: #282828;
 
-  --vt-c-indigo: #2c3e50;
+  --theme-indigo: #2c3e50;
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  --theme-divider-light-1: rgba(60, 60, 60, 0.29);
+  --theme-divider-light-2: rgba(60, 60, 60, 0.12);
+  --theme-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --theme-divider-dark-2: rgba(84, 84, 84, 0.48);
 
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --theme-medium-grey: rgba(60, 60, 60, 0.66);
+  --theme-grey-white: rgba(235, 235, 235, 0.64);
+  */
+
+  /*--color-text-light-1: var(--vt-c-indigo);
+  --color-text-light-2: rgba(60, 60, 60, 0.66);
+  --color-text-dark-1: var(--vt-c-white);
+  --color-text-dark-2: rgba(235, 235, 235, 0.64);*/
+
+  --theme-skyBlue: #aab9f2;
+  --theme-white: #ffff;
+  --theme-OtherWhite: #f8f8f8;
+  --theme-yellow: #ffbf00;
+  --theme-darkBrown: #2E2919;
+  --theme-grey: rgba(60, 60, 60, 0.66);
+  --theme-navyBlue: #1b2336;
+  --theme-orange: #db2e1f;
 }
 
-/* semantic color variables for this project */
+
+/* Update with the variables names previously declared */
+/*Semantic color variables for light mode*/
 :root {
-  --color-background: var(--vt-c-white);
+  /*
+  --color-background: var(--color-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
@@ -32,11 +52,24 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
+  */
 
+  --color-background: var(--theme-white);
+  --color-loginBackground: var(--theme-OtherWhite);
+
+  --color-darkBlueAccent: var(--theme-navyBlue);
+  --color-lightBlueAccent: var(--theme-skyBlue);
+
+  --color-text: var(--theme-darkBrown);
+  --color-lighterText: var(--theme-grey);
+
+  --color-banner: var(--theme-yellow);
+  
   --section-gap: 160px;
 }
 
-@media (prefers-color-scheme: dark) {
+/*Semantic color variables for dark mode*/
+/*@media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
@@ -48,7 +81,7 @@
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
   }
-}
+}*/
 
 *,
 *::before,

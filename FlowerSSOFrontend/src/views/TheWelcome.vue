@@ -97,16 +97,16 @@ watch(showPassword, async () => {
 }
 
 .login-card {
-  background: white;
+  background: var(--color-background);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--color-loginBackground);
   padding: 2.5rem;
 }
 
 .login-title {
   font-size: 1.5rem;
   font-weight: 400;
-  color: #333;
+  color: var(--color-text);
   margin: 0 0 2rem;
   text-align: center;
 }
@@ -125,13 +125,13 @@ watch(showPassword, async () => {
 .form-label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
 }
 
 .form-input {
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-background);
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s;
@@ -139,8 +139,8 @@ watch(showPassword, async () => {
 
 .form-input:focus {
   outline: none;
-  border-color: #0073e6;
-  box-shadow: 0 0 0 3px rgba(0, 115, 230, 0.1);
+  border-color: var(--color-darkBlueAccent);
+  box-shadow: 0 0 0 3px var(--color-lighterText);
 }
 
 .password-wrapper {
@@ -156,7 +156,7 @@ watch(showPassword, async () => {
   border: none;
   cursor: pointer;
   padding: 0.25rem;
-  color: #666;
+  color: var(--color-lighterText);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,7 +173,7 @@ watch(showPassword, async () => {
 }
 
 .show-password-btn:hover {
-  color: #333;
+  color: var(--color-lighterText);
 }
 
 .checkbox-group {
@@ -187,7 +187,7 @@ watch(showPassword, async () => {
   gap: 0.5rem;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-lighterText);
 }
 
 .form-checkbox {
@@ -197,8 +197,8 @@ watch(showPassword, async () => {
 }
 
 .sign-in-btn {
-  background-color: #0073e6;
-  color: white;
+  background-color: var(--color-darkBlueAccent);
+  color: var(--color-background);
   border: none;
   border-radius: 4px;
   padding: 0.875rem 1.5rem;
@@ -210,11 +210,11 @@ watch(showPassword, async () => {
 }
 
 .sign-in-btn:hover {
-  background-color: #0061c2;
+  background-color: var(--color-darkBlueAccent);
 }
 
 .sign-in-btn:active {
-  background-color: #005099;
+  background-color: var(--color-darkBlueAccent);
 }
 
 .help-links {
@@ -223,11 +223,11 @@ watch(showPassword, async () => {
   gap: 0.75rem;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--color-background);
 }
 
 .help-link {
-  color: #0073e6;
+  color: var(--color-darkBlueAccent);
   text-decoration: none;
   font-size: 0.9rem;
   text-align: center;
