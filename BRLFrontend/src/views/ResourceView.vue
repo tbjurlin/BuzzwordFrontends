@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Upvote from '@/components/Upvote.vue';
+import VueFeather from 'vue-feather';
 import { ref } from 'vue'
 
 const resource = {
@@ -14,6 +15,18 @@ const resource = {
   upvoteCount: 245,
   upvotedByCurrentUser: true,
 }
+
+const upvoteCount = ref(resource.upvoteCount);
+const userUpvoted = ref(resource.upvotedByCurrentUser);
+
+const handleUpvote = () => {
+    if (userUpvoted.value) {
+        upvoteCount.value -= 1;
+    } else {
+        upvoteCount.value += 1;
+    }
+    userUpvoted.value = !userUpvoted.value;
+}
 </script>
 
 <template>
@@ -24,9 +37,19 @@ const resource = {
         <p class="resource-metadata">Creator: {{ resource.creatorFirstName }} {{ resource.creatorLastName }} | Created on: {{ resource.creationDate }}</p>
         <p class="resource-description">{{ resource.description }}</p>
         <div class="resource-action-row">
-            <Upvote/>
-            <div class="resource-comment-button"></div>
-            <div class="resource-share-button"></div>
+            <Upvote class="resource-action-item" :is-upvoted="userUpvoted" :count="upvoteCount" @upvoted="handleUpvote"/>
+            <div class="resource-action-item resource-comment-action">
+                <button class="resource-comment-button">
+                    <VueFeather type="message-square"/>
+                </button>
+                {{ resource.comments.length }}
+            </div>
+            <!-- If we want a share button
+            <div class="resource-share-action">
+                <button class="resource-share-button">
+                    <VueFeather type="share-2"/>
+                </button>
+            </div> -->
         </div>
     </div>
     <!-- <CommentList comments=resource.comments> -->
