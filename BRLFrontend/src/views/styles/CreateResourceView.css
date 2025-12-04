@@ -6,13 +6,13 @@
 }
 
 h2 {
-  color: #333;
+  color: var(--color-heading);
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
 
 .resource-form {
-  background: white;
+  background: var(--color-background);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@ textarea,
 select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-size: 0.95rem;
   font-family: inherit;
@@ -53,7 +53,7 @@ input[type='url']:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #E6EDFF;
+  border-color: var(--theme-bee);
   box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
 }
 
@@ -62,18 +62,18 @@ textarea {
 }
 
 .file-upload-container {
-  border: 2px dashed #ddd;
+  border: 2px dashed var(--color-background-soft);
   border-radius: 4px;
   padding: 2rem;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: #fafafa;
+  background-color: var(--color-background-soft);
 }
 
 .file-upload-container:hover {
-  border-color: #667eea;
-  background-color: #f5f5ff;
+  border-color: var(--theme-tears);
+  background-color: var(--color-background-soft);
 }
 
 .upload-icon {
@@ -119,26 +119,6 @@ textarea {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background-color: #667eea;
-  color: white;
-  flex: 1;
-}
-
-.btn-primary:hover {
-  background-color: #AAB9F2;
-}
-
-.btn-secondary {
-  background-color: #f5f5f5;
-  color: #333;
-  border: 1px solid #ddd;
-}
-
-.btn-secondary:hover {
-  background-color: #eee;
 }
 
 @media (max-width: 768px) {

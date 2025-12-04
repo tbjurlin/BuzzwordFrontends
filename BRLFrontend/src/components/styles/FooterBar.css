@@ -1,6 +1,6 @@
 .footer {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--color-background-invert);
+  color: var(--color-text-invert);
   padding: 2rem;
   margin-top: auto;
 }
