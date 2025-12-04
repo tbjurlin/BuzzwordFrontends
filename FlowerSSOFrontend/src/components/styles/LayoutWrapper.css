@@ -1,0 +1,92 @@
+/* Layout Wrapper Styles */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* Top Bar Styles */
+.top-bar {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.connecting-message {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flower-icon {
+  color: #0073e6;
+  font-size: 1.2rem;
+}
+
+.connecting-text {
+  color: #333;
+}
+
+/* Logo Section Styles */
+.logo-section {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  background-color: #f9f9f9;
+}
+
+.company-logo {
+  width: 75px;
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+
+.small-logo{
+    width: 25px;
+    vertical-align:middle;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #333;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .logo-section {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .connecting-message {
+    font-size: 0.85rem;
+  }
+}
