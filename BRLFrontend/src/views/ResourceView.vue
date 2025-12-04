@@ -31,8 +31,8 @@ const handleUpvote = () => {
 
 <template>
   <div class="resource-view">
+    <h2 class="resource-title">{{ resource.title }}</h2>
     <div class="resource-card">
-        <h2 class="resource-title">{{ resource.title }}</h2>
         <p class="resource-url">Link to resource: <a class="resource-url-link" :href="resource.url">{{ resource.url }}</a></p>
         <p class="resource-metadata">Creator: {{ resource.creatorFirstName }} {{ resource.creatorLastName }} | Created on: {{ resource.creationDate }}</p>
         <p class="resource-description">{{ resource.description }}</p>
