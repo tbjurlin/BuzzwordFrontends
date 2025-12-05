@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import feather from 'feather-icons'
+import { useAuth } from '../stores/auth'
 
 const username = ref('')
 const password = ref('')
@@ -60,7 +62,7 @@ watch(showPassword, async () => {
               aria-label="Toggle password visibility"
             >
               <i v-if="!showPassword" data-feather="eye"></i>
-              <i v-else data-feather="eye-off"></i>
+              <i v-else = "showPassword" data-feather="eye-off"></i>
             </button>
           </div>
         </div>
@@ -99,7 +101,7 @@ watch(showPassword, async () => {
 .login-card {
   background: var(--color-background);
   border-radius: 8px;
-  box-shadow: 0 2px 8px var(--color-loginBackground);
+  box-shadow: 0 2px 8px var(--color-lighterText);
   padding: 2.5rem;
 }
 
@@ -131,7 +133,7 @@ watch(showPassword, async () => {
 
 .form-input {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--color-background);
+  border: 1px solid var(--color-lighterText);
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s;
@@ -173,7 +175,7 @@ watch(showPassword, async () => {
 }
 
 .show-password-btn:hover {
-  color: var(--color-lighterText);
+  color: var(--color-text);
 }
 
 .checkbox-group {
@@ -210,7 +212,7 @@ watch(showPassword, async () => {
 }
 
 .sign-in-btn:hover {
-  background-color: var(--color-darkBlueAccent);
+  background-color: var(--color-lightBlueAccent);
 }
 
 .sign-in-btn:active {
@@ -235,6 +237,16 @@ watch(showPassword, async () => {
 
 .help-link:hover {
   text-decoration: underline;
+}
+
+.error-message {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-lighterText);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  color: var(--color-error);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {
