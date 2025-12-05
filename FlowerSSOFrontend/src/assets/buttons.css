@@ -18,7 +18,7 @@
 }
 
 .btn-primary:hover {
-  background-color: var(--color-lightBlueAccent);
+  background-color: var(--color-darkBlueAccent);
   transform: scale(1.05);
 }
 

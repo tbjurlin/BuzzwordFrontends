@@ -120,7 +120,7 @@ watch(showPassword, async () => {
 .login-card {
   background: var(--color-background);
   border-radius: 8px;
-  box-shadow: 0 2px 8px var(--color-loginBackground);
+  box-shadow: 0 2px 8px var(--color-lighterText);
   padding: 2.5rem;
 }
 
@@ -152,7 +152,7 @@ watch(showPassword, async () => {
 
 .form-input {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--color-background);
+  border: 1px solid var(--color-lighterText);
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s;
@@ -194,7 +194,7 @@ watch(showPassword, async () => {
 }
 
 .show-password-btn:hover {
-  color: var(--color-lighterText);
+  color: var(--color-text);
 }
 
 .checkbox-group {
@@ -231,7 +231,7 @@ watch(showPassword, async () => {
 }
 
 .sign-in-btn:hover {
-  background-color: var(--color-darkBlueAccent);
+  background-color: var(--color-lightBlueAccent);
 }
 
 .sign-in-btn:active {
@@ -259,11 +259,11 @@ watch(showPassword, async () => {
 }
 
 .error-message {
-  background-color: #fee;
-  border: 1px solid #fcc;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-lighterText);
   border-radius: 4px;
   padding: 0.75rem 1rem;
-  color: #c33;
+  color: var(--color-error);
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
