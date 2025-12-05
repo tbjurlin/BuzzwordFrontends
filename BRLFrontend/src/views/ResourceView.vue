@@ -117,8 +117,8 @@ onMounted(() => {
             </button>
             <button class="tab flag-tab" :class="{active: activeTab == 'flags'}" @click="activeTab = 'flags'">
                 <VueFeather type="flag"/>
-                <p v-if="resource.comments.length == 1">{{ resource.comments.length }} Flags</p>
-                <p v-else>{{ resource.comments.length }} Flags</p>
+                <p v-if="resource.reviewFlags.length == 1">{{ resource.reviewFlags.length }} Flags</p>
+                <p v-else>{{ resource.reviewFlags.length }} Flags</p>
             </button>
         </div>
     </div>
