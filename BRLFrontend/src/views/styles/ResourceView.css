@@ -37,3 +37,29 @@ h2 {
 .resource-action-item button:hover {
     border-color: var(--color-border)
 }
+
+.flag-warning {
+    background-color: var(--theme-blood);
+    color: var(--theme-hardboiled);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+}
+
+.flag-warning b {
+    font-weight: bold;
+}
+
+.resource-tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tab {
+    display: flex;
+    width: 100%;
+}

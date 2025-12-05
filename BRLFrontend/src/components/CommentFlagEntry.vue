@@ -13,18 +13,22 @@ const props = defineProps({
     handleSuccessfulSubmit: {
         type: Function,
         required: true,
+    },
+    type: {
+        type: String,
+        required: true,
     }
 })
 </script>
 
 <template>
-    <form class="comment-entry" @submit.prevent="handleSubmit">
-        <label for="comments">Your Comments:</label><br>
-        <textarea id="comments" name="user_comments" maxlength=200 placeholder="Enter your comments here..."></textarea><br>
+    <form :class="type + '-entry'" @submit.prevent="handleSubmit">
+        <label :for="type">Your {{ type }}:</label><br>
+        <textarea :id="type" :name="'user_' + type" maxlength=200 :placeholder="'Enter your ' + type + 's here...'"></textarea><br>
         <input type="submit" value="Submit">
     </form>
 </template>
 
 <style scoped>
-@import './styles/CommentEntry.css';
+@import './styles/CommentFlagEntry.css';
 </style>
