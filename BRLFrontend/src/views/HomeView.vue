@@ -4,6 +4,7 @@
 <template>
   <div class="home-view">
     <!-- Empty home page - content can be added here -->
+    
   </div>
 </template>
 
