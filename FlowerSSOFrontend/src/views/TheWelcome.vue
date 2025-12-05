@@ -4,14 +4,29 @@ import { useRouter } from 'vue-router'
 import feather from 'feather-icons'
 import { useAuth } from '../stores/auth'
 
-const username = ref('')
+const router = useRouter()
+const { login } = useAuth()
+
+const email = ref('')
 const password = ref('')
 const keepSignedIn = ref(false)
 const showPassword = ref(false)
+const errorMessage = ref('')
 
 const handleSignIn = () => {
-  console.log('Sign in clicked', { username: username.value })
-  // Add your authentication logic here
+  console.log('Sign in clicked', { email: email.value })
+
+  errorMessage.value = ''
+  
+  // Attempt login with dummy user
+  const success = login(email.value, password.value)
+  
+  if (success) {
+    // Redirect to profile page
+    router.push({ name: 'profile' })
+  } else {
+    errorMessage.value = 'Invalid credentials. Try Again' //remove later
+  }
 }
 
 onMounted(() => {
@@ -31,12 +46,16 @@ watch(showPassword, async () => {
     <div class="login-card">
       <h2 class="login-title">Sign In</h2>
       
+      <div v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      
       <form @submit.prevent="handleSignIn" class="login-form">
         <div class="form-group">
-          <label for="username" class="form-label">Username</label>
+          <label for="email" class="form-label">Email</label>
           <input
-            id="username"
-            v-model="username"
+            id="email"
+            v-model="email"
             type="text"
             class="form-input"
             placeholder=""
@@ -77,7 +96,7 @@ watch(showPassword, async () => {
             <span>Keep me signed in</span>
           </label>
         </div>
-
+        
         <button type="submit" class="sign-in-btn">
           Sign in
         </button>
@@ -85,7 +104,7 @@ watch(showPassword, async () => {
 
       <div class="help-links">
         <a href="#" class="help-link">Forgot password?</a>
-        <a href="#" class="help-link">Unlock account?</a>
+        <a href="#" class="help-link">Create account</a>
         <a href="#" class="help-link">Help</a>
       </div>
     </div>
