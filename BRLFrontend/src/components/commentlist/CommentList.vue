@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { Comment } from '@/types';
+import CommentItem from './CommentItem.vue';
+
+// using Type syntax
+const props = defineProps<{
+  comments: Comment[]
+}>();
 </script>
 
 <template>
-    <div class="comment-list">
-
-    </div>
+    <ol class="comment-list">
+        <CommentItem v-for="comment in props.comments" :comment="comment"/>
+    </ol>
 </template>
 
 <style scoped>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Upvote from '@/components/Upvote.vue';
+import CommentList from '@/components/commentlist/CommentList.vue';
 import VueFeather from 'vue-feather';
 import { onMounted, ref, watch } from 'vue'
 import type { Resource } from '@/types';
@@ -59,7 +60,7 @@ onMounted(() => {
             </div> -->
         </div>
     </div>
-    <!-- <CommentList comments=resource.comments> -->
+    <CommentList :comments="resource.comments" />
   </div>
   <p v-else>Resource not available</p>
 </template>
