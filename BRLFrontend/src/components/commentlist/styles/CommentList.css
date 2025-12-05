@@ -2,4 +2,5 @@ ol {
     list-style-type: none;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }

@@ -9,6 +9,16 @@ import { retrieveResource } from '@/backend_calls';
 
 const resource = ref<Resource>();
 const route = useRoute();
+const commentsScrollTarget = ref<HTMLElement | null>(null);
+
+const scrollToComments = () => {
+  if (commentsScrollTarget.value) {
+    commentsScrollTarget.value.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+};
 
 const handleUpvote = () => {
     if (resource.value != undefined) { 
@@ -47,7 +57,7 @@ onMounted(() => {
         <div class="resource-action-row">
             <Upvote class="resource-action-item" :is-upvoted="resource.upvotedByCurrentUser" :count="resource.upvoteCount" @upvoted="handleUpvote"/>
             <div class="resource-action-item resource-comment-action">
-                <button class="resource-comment-button">
+                <button class="resource-comment-button" @click="scrollToComments">
                     <VueFeather type="message-square"/>
                 </button>
                 {{ resource.comments.length }}
@@ -60,7 +70,7 @@ onMounted(() => {
             </div> -->
         </div>
     </div>
-    <CommentList :comments="resource.comments" />
+    <CommentList ref="commentsScrollTarget" :comments="resource.comments" />
   </div>
   <p v-else>Resource not available</p>
 </template>
