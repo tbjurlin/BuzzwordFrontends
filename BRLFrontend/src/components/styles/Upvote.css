@@ -1,0 +1,33 @@
+.upvote-container {
+    flex-wrap: nowrap;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.0rem;
+}
+
+.upvote-container p {
+    margin-left: 0.4rem;
+    margin-right: 0.2rem;
+}
+
+.is-upvoted button {
+    background-color: var(--color-button);
+    color: var(--color-text);
+    border: 2px solid var(--color-button);
+}
+
+.is-upvoted button:hover {
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+button {
+    background-color: var(--color-background-soft);
+    border: 2px solid var(--color-background-soft);
+    border-radius: 6px;
+}
+
+button:hover {
+    border-color: var(--color-border)
+}

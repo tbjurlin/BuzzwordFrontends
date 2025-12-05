@@ -53,6 +53,14 @@ const closeMenu = () => {
       >
         View Resources
       </RouterLink>
+      <RouterLink 
+        to="/resource/17" 
+        class="nav-link" 
+        active-class="active"
+        @click="closeMenu"
+      >
+        Temp Resource
+      </RouterLink>
       <a 
         href="https://flower-sso.example.com" 
         class="nav-link" 
