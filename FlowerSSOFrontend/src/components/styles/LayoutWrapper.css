@@ -4,41 +4,41 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: var(--color-background);
 }
 
 /* Top Bar Styles */
 .top-bar {
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: var(--color-banner);
+  border-bottom: 1px solid var(--color-background);
   padding: 1rem 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px var(--color-lighterText);
 }
 
 .connecting-message {
   max-width: 1200px;
   margin: 0 auto;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .flower-icon {
-  color: #0073e6;
+  color: var(--color-blueAccent);
   font-size: 1.2rem;
 }
 
 .connecting-text {
-  color: #333;
+  color: var(--color-text);
 }
 
 /* Logo Section Styles */
 .logo-section {
   text-align: center;
   padding: 3rem 2rem 2rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-background);
 }
 
 .company-logo {
@@ -57,7 +57,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #333;
+  color: var(--color-text);
 }
 
 /* Main Content Styles */

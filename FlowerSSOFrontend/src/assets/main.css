@@ -9,7 +9,7 @@
 a,
 .green {
   text-decoration: none;
-  color: #667eea;
+  color: var(--color-darkBlueAccent);
   transition: 0.4s;
   padding: 3px;
 }
