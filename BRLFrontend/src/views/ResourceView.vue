@@ -6,6 +6,7 @@ import { onMounted, ref, watch } from 'vue'
 import type { Resource } from '@/types';
 import { useRoute } from 'vue-router';
 import { retrieveResource } from '@/backend_calls';
+import CommentEntry from '@/components/CommentEntry.vue';
 
 const resource = ref<Resource>();
 const route = useRoute();
@@ -33,6 +34,10 @@ const handleUpvote = () => {
     }
 }
 
+function refresh() {
+    resource.value = retrieveResource(Number(route.params.id));
+}
+
 watch(
     () => route.params.id,
     (newId, _) => {
@@ -41,7 +46,7 @@ watch(
 )
 
 onMounted(() => {
-    resource.value = retrieveResource(Number(route.params.id))
+    refresh();
 })
 </script>
 
@@ -70,6 +75,7 @@ onMounted(() => {
             </div> -->
         </div>
     </div>
+    <CommentEntry :handle-successful-submit="refresh" :resource-id="resource.id"/>
     <CommentList ref="commentsScrollTarget" :comments="resource.comments" />
   </div>
   <p v-else>Resource not available</p>
