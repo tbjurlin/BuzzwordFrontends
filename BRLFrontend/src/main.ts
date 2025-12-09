@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import VueCookies from 'vue-cookies'
 
 const FlowerURL = import.meta.env.VITE_FLOWER_SSO_URL || 'http://localhost:5174/'
 
@@ -15,5 +16,6 @@ else {
 const app = createApp(App)
 
 app.use(router)
+app.use(VueCookies)
 
 app.mount('#app')}

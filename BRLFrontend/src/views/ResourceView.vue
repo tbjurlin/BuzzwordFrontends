@@ -3,16 +3,21 @@ import Upvote from '@/components/Upvote.vue';
 import CommentFlagList from '@/components/commentlist/CommentFlagList.vue';
 import VueFeather from 'vue-feather';
 import { onMounted, ref, watch } from 'vue'
-import type { Resource } from '@/types';
+import { Resource } from '@/types';
 import { useRoute } from 'vue-router';
-import { retrieveResource } from '@/backend_calls';
 import CommentFlagEntry from '@/components/CommentFlagEntry.vue';
+import { useResource } from '@/composables/useResource';
+import { useUpvote } from '@/composables/useUpvote';
 
 const resource = ref<Resource>();
 const route = useRoute();
 const commentsScrollTarget = ref<HTMLElement | null>(null);
 const flagsScrollTarget = ref<HTMLElement | null>(null);
 const activeTab = ref("comments");
+
+const getResourceById = useResource().getResourceById;
+const listAllResources = useResource().listAllResources;
+const { createUpvote, deleteUpvote } = useUpvote();
 
 const scrollToTabs = () => {
   if (activeTab.value == "comments") {
@@ -43,28 +48,55 @@ const scrollToComments = () => {
 }
 
 const handleUpvote = () => {
-    if (resource.value != undefined) { 
-        if (resource.value.upvotedByCurrentUser) {
-            // delete upvote api call
-            resource.value.upvoteCount -= 1;
-        } else {
-            // add upvote api call
-            resource.value.upvoteCount += 1;
+    if (resource.value) { 
+        console.log(resource.value)
+        if (resource.value.upvotedByCurrentUser && resource.value.currentUserUpvoteId != undefined) {
+            deleteUpvote(
+                resource.value.id,
+                resource.value.currentUserUpvoteId,
+                () => {
+                    if (resource.value) {
+                        resource.value.upvoteCount -= 1;
+                        resource.value.upvotedByCurrentUser = false;
+                    }
+                },
+                () => {}
+            )
+        } else if (!resource.value.upvotedByCurrentUser) {
+            createUpvote(
+                resource.value.id,
+                (newId) => {
+                    if (resource.value) {
+                        resource.value.upvoteCount += 1;
+                        resource.value.upvotedByCurrentUser = true;
+                        resource.value.currentUserUpvoteId = newId;
+                    }
+                },
+                () => {}
+            )
         }
-        resource.value.upvotedByCurrentUser = !resource.value.upvotedByCurrentUser;
     }
 }
 
 function refresh() {
-    resource.value = retrieveResource(Number(route.params.id));
+    getResourceById(
+        Number(route.params.id),
+        (res) => resource.value = res,
+        (reason) => resource.value = undefined,
+    )
 }
 
 watch(
     () => route.params.id,
-    (newId, _) => {
-        resource.value = retrieveResource(Number(newId));
+    (newId, _oldId) => {
+        getResourceById(
+            Number(newId),
+            (res) => resource.value = res,
+            (reason) => resource.value = undefined,
+        )
     }
 )
+
 
 onMounted(() => {
     refresh();
@@ -73,7 +105,7 @@ onMounted(() => {
 
 <template>
   <div v-if="resource != undefined" class="resource-view">
-    <div class="flag-warning" v-if="resource.reviewFlags.length > 0" @click="scrollToFlags">
+    <div class="flag-warning" v-if="resource.reviewFlags.length > 0" @click="refresh">
         <p v-if="resource.reviewFlags.length > 1">
             <b>Warning! This resource has been flagged {{ resource.reviewFlags.length }} times!</b>
         </p>
