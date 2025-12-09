@@ -16,6 +16,65 @@ export class Resource {
         public upvotedByCurrentUser: boolean,
         public currentUserUpvoteId: number,
     ) { }
+
+    static fromResponse(
+        data: {
+            id: number,
+            firstName: string,
+            lastName: string,
+            creatorId: number,
+            creationDate: number,
+            currentUserCanDelete: boolean,
+            isEdited: boolean,
+            title: string,
+            description: string,
+            url: string,
+            comments: {
+                id: number,
+                firstName: string,
+                lastName: string,
+                creatorId: number,
+                creationDate: number,
+                currentUserCanDelete: boolean,
+                isEdited: boolean,
+                contents: string,
+            }[],
+            reviewFlags: {
+                id: number,
+                firstName: string,
+                lastName: string,
+                creatorId: number,
+                creationDate: number,
+                currentUserCanDelete: boolean,
+                isEdited: boolean,
+                contents: string,
+            }[],
+            upvoteCount: number,
+            upvotedByCurrentUser: boolean,
+            currentUserUpvoteId: number,
+        }): Resource {
+        return new Resource(
+            data.id,
+            data.firstName,
+            data.lastName,
+            data.creatorId,
+            new Date(data.creationDate),
+            data.currentUserCanDelete,
+            data.isEdited,
+            data.title,
+            data.description,
+            data.url,
+            data.comments.map((commentData) => 
+                Comment.fromResponse(commentData)
+            ),
+            data.reviewFlags.map((flagData) => 
+                Flag.fromResponse(flagData)
+            ),
+            data.upvoteCount,
+            data.upvotedByCurrentUser,
+            data.currentUserUpvoteId
+        )
+    }
 }
 
 export class Comment {
@@ -29,6 +88,30 @@ export class Comment {
         public isEdited: boolean,
         public contents: string,
     ) { }
+
+    static fromResponse(
+        data: {
+            id: number,
+            firstName: string,
+            lastName: string,
+            creatorId: number,
+            creationDate: number,
+            currentUserCanDelete: boolean,
+            isEdited: boolean,
+            contents: string,
+        }
+    ): Comment {
+        return new Comment(
+            data.id,
+            data.firstName,
+            data.lastName,
+            data.creatorId,
+            new Date(data.creationDate),
+            data.currentUserCanDelete,
+            data.isEdited,
+            data.contents
+        )
+    }
 }
 
 export class Flag {
@@ -42,4 +125,28 @@ export class Flag {
         public isEdited: boolean,
         public contents: string,
     ) { }
+
+    static fromResponse(
+        data: {
+            id: number,
+            firstName: string,
+            lastName: string,
+            creatorId: number,
+            creationDate: number,
+            currentUserCanDelete: boolean,
+            isEdited: boolean,
+            contents: string,
+        }
+    ): Flag {
+        return new Flag(
+            data.id,
+            data.firstName,
+            data.lastName,
+            data.creatorId,
+            new Date(data.creationDate),
+            data.currentUserCanDelete,
+            data.isEdited,
+            data.contents
+        )
+    }
 }
