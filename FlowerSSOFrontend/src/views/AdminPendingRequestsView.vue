@@ -29,10 +29,10 @@ const formatDate = (date: Date) => {
 // Get role badge class for styling
 const getRoleBadgeClass = (role: string) => {
   switch (role) {
-    case 'admin':
-      return 'role-badge-admin'
     case 'manager':
       return 'role-badge-manager'
+    case 'contributor':
+      return 'role-badge-contributor'
     default:
       return 'role-badge-user'
   }
@@ -138,8 +138,8 @@ watch(pendingRequests, async () => {
             </div>
           </div>
 
-          <!-- Special Notice for Admin/Manager Requests -->
-          <div v-if="request.role === 'admin' || request.role === 'manager'" class="elevated-role-notice">
+          <!-- Special Notice for Manager/Contributor Requests -->
+          <div v-if="request.role === 'manager' || request.role === 'contributor'" class="elevated-role-notice">
             <i data-feather="alert-triangle" class="warning-icon"></i>
             <strong>Elevated Role Request:</strong>
             This user is requesting {{ request.role }} privileges. Please verify their credentials carefully.

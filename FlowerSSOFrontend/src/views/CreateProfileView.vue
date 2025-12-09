@@ -193,11 +193,11 @@ const handleCancel = () => {
             <label for="role" class="form-label">Account Type *</label>
             <select id="role" v-model="role" class="form-select">
               <option value="user">User</option>
+              <option value="contributor">Contributor</option>
               <option value="manager">Manager</option>
-              <option value="admin">Administrator</option>
             </select>
             <p class="form-helper-text">
-              Manager and Admin accounts require additional approval
+              Contributor and Manager accounts require additional approval
             </p>
           </div>
         </div>
