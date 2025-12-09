@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Resource } from '@/types';
+import Upvote from '@/components/Upvote.vue'
 
 
 const props = defineProps<{
@@ -21,6 +22,9 @@ const props = defineProps<{
             <p>{{ props.resource.creationDate }}</p>
             <p>{{  props.resource.url }}</p>
             <p>{{ props.resource.description }}</p>
+            <div class="resource-action-items">
+                <Upvote :is-upvoted="resource.upvotedByCurrentUser" :count="resource.upvoteCount"/>
+            </div>
         </RouterLink>
     </li>
 </template>

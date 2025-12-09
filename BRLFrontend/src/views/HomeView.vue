@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { retrieveResource } from '@/backend_calls';
 import ResourceList from '@/components/resourcelist/ResourceList.vue';
+import { useResource } from '@/composables/useResource';
 import { Resource } from '@/types';
 import { onMounted, ref } from 'vue';
 
 const resources = ref<Resource[]>([])
 
-const listAllResources = (onSuccess: (resources: Resource[]) => void, onFailure: (reason: any) => void) => {
-  var resource = retrieveResource(17)
-  if (resource) {
-    onSuccess([resource])
-  } else {
-    onFailure(null)
-  }
-}
+const listAllResources = useResource().listAllResources;
 
 onMounted(() => {
   listAllResources(
     (res) => resources.value = res,
-    (reason) => {}
+    (reason) => {
+      console.log(reason)
+    }
   )
 })
 </script>
