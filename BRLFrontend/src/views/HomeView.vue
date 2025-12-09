@@ -1,10 +1,28 @@
 <script setup lang="ts">
+import ResourceList from '@/components/resourcelist/ResourceList.vue';
+import { useResource } from '@/composables/useResource';
+import { Resource } from '@/types';
+import { onMounted, ref } from 'vue';
+
+const resources = ref<Resource[]>([])
+
+const listAllResources = useResource().listAllResources;
+
+onMounted(() => {
+  listAllResources(
+    (res) => resources.value = res,
+    (reason) => {
+      console.log(reason)
+    }
+  )
+})
 </script>
 
 <template>
   <div class="home-view">
     <!-- Empty home page - content can be added here -->
-    
+    <h2>Available Resources</h2>
+    <ResourceList :resources="resources"/>
   </div>
 </template>
 
