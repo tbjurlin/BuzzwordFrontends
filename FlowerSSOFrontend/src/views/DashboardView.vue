@@ -20,8 +20,28 @@ onMounted(() => {
 
 // Function to access BRL app
 const accessBRL = () => {
-  // Redirect to BRL frontend
-  window.location.href = BRL_URL
+  // Check if there's a pending redirect URL from SSO flow
+  const pendingRedirect = sessionStorage.getItem('pendingRedirect')
+  
+  // Get the user data to pass as token
+  const userData = localStorage.getItem('user')
+  
+  if (pendingRedirect) {
+    // Clear the stored redirect and go to the original requested URL
+    sessionStorage.removeItem('pendingRedirect')
+    const redirectUrl = new URL(pendingRedirect)
+    if (userData) {
+      redirectUrl.searchParams.set('token', userData)
+    }
+    window.location.href = redirectUrl.toString()
+  } else {
+    // Default: redirect to BRL frontend home with token
+    const brlUrl = new URL(BRL_URL)
+    if (userData) {
+      brlUrl.searchParams.set('token', userData)
+    }
+    window.location.href = brlUrl.toString()
+  }
 }
 </script>
 

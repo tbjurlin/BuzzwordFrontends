@@ -96,16 +96,13 @@ export function useAuth() {
       // Store in localStorage for persistence
       localStorage.setItem('user', JSON.stringify(userWithoutPassword))
       
-      // Check if there's a redirect URL (for SSO flow)
+      // Store redirect URL if present (for later use in dashboard)
       const urlParams = new URLSearchParams(window.location.search)
       const redirectUrl = urlParams.get('redirect')
       
       if (redirectUrl) {
-        // Redirect back to the requesting application
-        // Add a small delay to ensure state is saved
-        setTimeout(() => {
-          window.location.href = redirectUrl
-        }, 100)
+        // Store the redirect URL for the dashboard to use
+        sessionStorage.setItem('pendingRedirect', redirectUrl)
       }
       
       return true
@@ -122,17 +119,6 @@ export function useAuth() {
 
   // Check if user is authenticated from localStorage
   const checkAuth = () => {
-    // Check if this is an external SSO request
-    const urlParams = new URLSearchParams(window.location.search)
-    const isExternalRequest = urlParams.get('external') === 'true'
-    
-    if (isExternalRequest) {
-      // Clear any existing session for external SSO requests
-      // This ensures the user must log in again for external apps
-      logout()
-      return
-    }
-    
     const storedUser = localStorage.getItem('user')
     if (storedUser) {
       const userData = JSON.parse(storedUser)

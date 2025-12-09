@@ -47,6 +47,17 @@ router.beforeEach((to, from, next) => {
   // Check if user is authenticated from localStorage
   checkAuth()
   
+  // Get redirect URL parameter if present
+  const urlParams = new URLSearchParams(window.location.search)
+  const redirectUrl = urlParams.get('redirect')
+  
+  // If user is authenticated and there's a redirect URL, and they're on the home page
+  // redirect them to dashboard (they can then use "Access App" button)
+  if (isAuthenticated.value && redirectUrl && to.name === 'home') {
+    next({ name: 'dashboard' })
+    return
+  }
+  
   // Allow home and create-profile routes without authentication
   if (to.name === 'home' || to.name === 'create-profile') {
     next()

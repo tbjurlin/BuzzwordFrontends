@@ -12,15 +12,24 @@ export function useAuth() {
     return isAuthenticated.value
   }
 
+  // Set authentication token/user data (received from FlowerSSO)
+  const setToken = (userData: string) => {
+    if (userData) {
+      localStorage.setItem('user', userData)
+      isAuthenticated.value = true
+    }
+  }
+
   // Clear authentication
   const logout = () => {
-    isAuthenticated.value = false
     localStorage.removeItem('user')
+    isAuthenticated.value = false
   }
 
   return {
     isAuthenticated,
     checkAuth,
+    setToken,
     logout
   }
 }

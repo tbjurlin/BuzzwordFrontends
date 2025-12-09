@@ -32,20 +32,33 @@ const router = createRouter({
 
 // Navigation guard to check authentication
 router.beforeEach((to, from, next) => {
-  const { checkAuth } = useAuth()
+  const { checkAuth, setToken } = useAuth()
+  
+  // Check if there's a token in the URL (coming back from FlowerSSO)
+  const urlParams = new URLSearchParams(window.location.search)
+  const tokenFromUrl = urlParams.get('token')
+  
+  if (tokenFromUrl) {
+    // Store the token from FlowerSSO
+    setToken(tokenFromUrl)
+    // Clean up URL to remove token parameter
+    const cleanUrl = window.location.origin + to.fullPath.split('?')[0]
+    window.history.replaceState({}, '', cleanUrl)
+    next()
+    return
+  }
   
   // Check if user is authenticated
   const isAuthenticated = checkAuth()
   
-  // If not authenticated, redirect to FlowerSSO with return URL and external flag
+  // If not authenticated, redirect to FlowerSSO ONCE with return URL
   if (!isAuthenticated) {
     // Build the redirect URL to come back to BRL after login
     const currentUrl = window.location.origin + to.fullPath
-    const ssoUrl = `${FlowerSSOUrl}?redirect=${encodeURIComponent(currentUrl)}&external=true`
+    const ssoUrl = `${FlowerSSOUrl}?redirect=${encodeURIComponent(currentUrl)}`
     window.location.href = ssoUrl
     return false
   }
-  
   next()
 })
 
