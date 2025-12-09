@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useAuth } from '@/stores/auth'
 
 const isMenuOpen = ref(false)
+const { logout } = useAuth()
+
+const FlowerSSOUrl = import.meta.env.VITE_FLOWER_SSO_URL || 'http://localhost:5174/'
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -10,6 +14,13 @@ const toggleMenu = () => {
 
 const closeMenu = () => {
   isMenuOpen.value = false
+}
+
+const handleLogout = () => {
+  logout()
+  closeMenu()
+  // Redirect to FlowerSSO
+  window.location.href = FlowerSSOUrl
 }
 </script>
 
@@ -61,14 +72,12 @@ const closeMenu = () => {
       >
         Temp Resource
       </RouterLink>
-      <a 
-        href="http://localhost:5174/" 
-        class="nav-link" 
-        target="_blank"
-        @click="closeMenu"
+      <button
+        class="nav-link logout-btn"
+        @click="handleLogout"
       >
-        Flower SSO
-      </a>
+        Logout
+      </button>
     </div>
 
     <!-- Overlay for mobile menu -->

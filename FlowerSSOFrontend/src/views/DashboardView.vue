@@ -6,6 +6,8 @@ import { useAuth } from '../stores/auth'
 const router = useRouter()
 const { currentUser, checkAuth } = useAuth()
 
+const BRL_URL = import.meta.env.VITE_BRL_URL || 'http://localhost:5173/'
+
 // Ensure user data is loaded when component mounts
 onMounted(() => {
   checkAuth()
@@ -18,8 +20,8 @@ onMounted(() => {
 
 // Function to access BRL app
 const accessBRL = () => {
-  // Redirect to BRL frontend (localhost:5173)
-  window.location.href = 'http://localhost:5173/'
+  // Redirect to BRL frontend
+  window.location.href = BRL_URL
 }
 </script>
 

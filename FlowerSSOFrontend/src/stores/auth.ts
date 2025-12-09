@@ -80,9 +80,6 @@ const pendingRequests = ref<PendingUserRequest[]>([])
 const currentUser = ref<User | null>(null)
 const isAuthenticated = ref(false)
 
-// Track if we've handled the initial external SSO request
-let hasHandledExternalRequest = false
-
 export function useAuth() {
   // Login with email and password
   const login = (email: string, password: string): boolean => {
@@ -121,24 +118,19 @@ export function useAuth() {
     currentUser.value = null
     isAuthenticated.value = false
     localStorage.removeItem('user')
-    // Reset the external request flag on logout
-    hasHandledExternalRequest = false
   }
 
   // Check if user is authenticated from localStorage
   const checkAuth = () => {
-    // Check if this is an external SSO request - only check once per session
-    if (!hasHandledExternalRequest) {
-      const urlParams = new URLSearchParams(window.location.search)
-      const isExternalRequest = urlParams.get('external') === 'true'
-      
-      if (isExternalRequest) {
-        // Mark that we've handled the external request
-        hasHandledExternalRequest = true
-        // Clear any existing session for external SSO requests
-        logout()
-        return
-      }
+    // Check if this is an external SSO request
+    const urlParams = new URLSearchParams(window.location.search)
+    const isExternalRequest = urlParams.get('external') === 'true'
+    
+    if (isExternalRequest) {
+      // Clear any existing session for external SSO requests
+      // This ensures the user must log in again for external apps
+      logout()
+      return
     }
     
     const storedUser = localStorage.getItem('user')
