@@ -1,0 +1,241 @@
+.dashboard-container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 2rem;
+  margin: 0 auto;
+  background-color: var(--color-background);
+}
+
+.dashboard-content {
+  width: 100%;
+}
+
+/* Admin Panel Styles */
+.admin-panel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.panel-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 1.5rem;
+  font-family: "Bree Serif", serif;
+}
+
+.admin-actions {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-action-card {
+  background: white;
+  border: none;
+  border-radius: 6px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.admin-action-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.action-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.action-info {
+  flex: 1;
+  position: relative;
+}
+
+.action-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 0.25rem;
+  font-family: "Bree Serif", serif;
+}
+
+.action-description {
+  font-size: 0.9rem;
+  color: var(--color-lighterText);
+  margin: 0;
+}
+
+.pending-badge {
+  display: inline-block;
+  background: var(--color-error);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}
+
+/* Connected Apps Styles */
+.connected-apps-box {
+  background: var(--color-background-soft);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--color-lighterText);
+  padding: 2.5rem;
+  border: 1px solid var(--color-lighterText);
+}
+
+.box-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-background-invert);
+  font-family: "Bree Serif", serif;
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.app-card {
+  background: var(--color-loginBackground);
+  border: 2px solid var(--color-lighterText);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.app-card:not(.placeholder-card):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px var(--color-lighterText);
+  border-color: var(--color-darkBlueAccent);
+}
+
+.placeholder-card {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.app-icon {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.app-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.placeholder-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: var(--color-lighterText);
+  border: 3px dashed var(--color-lighterText);
+  border-radius: 8px;
+}
+
+.app-info {
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.app-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+  font-family: "Bree Serif", serif;
+}
+
+.app-description {
+  font-size: 0.95rem;
+  color: var(--color-lighterText);
+  margin: 0;
+}
+
+.app-access-btn {
+  background-color: var(--color-darkBlueAccent);
+  color: var(--color-text-invert);
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  width: 100%;
+}
+
+.app-access-btn:hover:not(:disabled) {
+  background-color: var(--color-lightBlueAccent);
+  color: var(--color-text);
+  transform: translateY(-2px);
+}
+
+.app-access-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-lighterText);
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .admin-panel {
+    padding: 1.5rem;
+  }
+
+  .admin-action-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .connected-apps-box {
+    padding: 1.5rem;
+  }
+  
+  .apps-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .box-title {
+    font-size: 1.5rem;
+  }
+}

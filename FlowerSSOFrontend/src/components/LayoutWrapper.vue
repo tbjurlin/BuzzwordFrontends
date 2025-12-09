@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useAuth } from '../stores/auth'
+
+const { isAuthenticated } = useAuth()
 </script>
 
 <template>
@@ -6,7 +9,8 @@
     <!-- Top Bar -->
     <header class="top-bar">
       <div class="connecting-message">
-        <h4>Connecting to <img src="../assets/favIcon.png" alt ="Flower SSO logo" class="company-logo">
+        <h4 v-if="isAuthenticated">Connected to <img src="../assets/favIcon.png" alt ="Flower SSO logo" class="company-logo"></h4>
+        <h4 v-else>Connecting to <img src="../assets/favIcon.png" alt ="Flower SSO logo" class="company-logo">
         <span class="connecting-text">Sign in with your account to access BRL Dashboard</span>
         </h4>
       </div>

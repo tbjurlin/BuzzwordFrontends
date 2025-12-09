@@ -4,6 +4,15 @@
 
 #app {
   font-weight: normal;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 a,

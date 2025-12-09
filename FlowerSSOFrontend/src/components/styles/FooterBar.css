@@ -1,0 +1,180 @@
+.footer {
+  background-color: var(--color-background-invert);
+  color: var(--color-text-invert);
+  padding: 1rem;
+  margin-top: auto;
+  width: 100%;
+  position: relative;
+  left: 0;
+  right: 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 2rem;
+}
+
+.footer-section {
+  width: auto;
+}
+
+.footer-copyright {
+  text-align: left;
+}
+
+.footer-contact {
+  text-align: right;
+}
+
+.footer-section h4 {
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: 1.1rem;
+  font-family: "Bree Serif", serif;
+}
+
+.footer-section p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.footer-section li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.footer-section a:hover {
+  color: var(--theme-yellow);
+  text-decoration: underline;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  /* Help and Contact side by side - no separator */
+  .footer-contact {
+    display: inline-block;
+    width: auto;
+    padding: 0 1rem;
+  }
+
+  .footer-contact {
+    order: 2;
+  }
+
+  /* Copyright below, smaller font */
+  .footer-copyright {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .footer-copyright h4 {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copyright p {
+    font-size: 0.75rem;
+  }
+
+  /* Smaller font for Contact sections */
+  .footer-contact h4 {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-contact a {
+    font-size: 0.75rem;
+  }
+
+  .footer-contact li {
+    margin-bottom: 0.3rem;
+  }
+
+  hr {
+    margin-top: 1rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .footer {
+    padding: 1rem 0.5rem;
+  }
+
+  .footer-contact {
+    padding: 0 0.75rem;
+  }
+
+  .footer-contact h4 {
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-contact a {
+    font-size: 0.7rem;
+  }
+
+  .footer-contact li {
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-copyright {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .footer-copyright h4 {
+    font-size: 0.75rem;
+  }
+
+  .footer-copyright p {
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+
+  hr {
+    margin-top: 0.75rem;
+  }
+}
