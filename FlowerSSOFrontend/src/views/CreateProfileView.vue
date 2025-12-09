@@ -158,47 +158,45 @@ const handleCancel = () => {
 
           <div class="form-group">
             <label for="title" class="form-label">Job Title *</label>
-            <input
-              id="title"
-              v-model="title"
-              type="text"
-              class="form-input"
-              placeholder="Software Engineer"
-            />
+            <select id="title" v-model="title" class="form-select">
+              <option value="" disabled>Select your job title</option>
+              <option value="Aide">Aide</option>
+              <option value="Developer">Developer</option>
+              <option value="Sales Agent">Sales Agent</option>
+              <option value="Manager">Manager</option>
+              </select>
           </div>
 
           <div class="form-group">
             <label for="department" class="form-label">Department *</label>
-            <input
-              id="department"
-              v-model="department"
-              type="text"
-              class="form-input"
-              placeholder="Engineering"
-            />
+            <select id="department" v-model="department" class="form-select">
+              <option value="" disabled>Select your department</option>
+              <option value="Legal">Legal</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Sales">Sales</option>
+              <option value="HR">HR</option>
+              </select>
           </div>
 
           <div class="form-group">
             <label for="country" class="form-label">Country *</label>
-            <input
-              id="country"
-              v-model="country"
-              type="text"
-              class="form-input"
-              placeholder="United States"
-            />
+            <select id = "country" v-model="country" class="form-select">
+              <option value="" disabled>Select your country</option>
+              <option value="USA">United States</option>
+              <option value="Japan">Japan</option>
+              <option value="Brazil">Brazil</option>
+              <option value="Germany">Germany</option>
+              <option value="SA">South Africa</option>
+            </select>
           </div>
 
           <div class="form-group">
-            <label for="role" class="form-label">Account Type *</label>
+            <label for="role" class="form-label">User Role *</label>
             <select id="role" v-model="role" class="form-select">
               <option value="user">User</option>
               <option value="contributor">Contributor</option>
               <option value="manager">Manager</option>
             </select>
-            <p class="form-helper-text">
-              Contributor and Manager accounts require additional approval
-            </p>
           </div>
         </div>
 
@@ -260,6 +258,7 @@ const handleCancel = () => {
             Submit Request
           </button>
         </div>
+        <p style="font-style: italic; font-size:12px; color: gray;">*Upon submitting, your profile will be sent for approval by an existing manager.*</p>
       </form>
     </div>
   </div>

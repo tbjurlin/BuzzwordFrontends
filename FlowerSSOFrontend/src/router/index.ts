@@ -47,6 +47,12 @@ router.beforeEach((to, from, next) => {
   // Check if user is authenticated from localStorage
   checkAuth()
   
+  // Allow home and create-profile routes without authentication
+  if (to.name === 'home' || to.name === 'create-profile') {
+    next()
+    return
+  }
+  
   // Check authentication requirement
   if (to.meta.requiresAuth && !isAuthenticated.value) {
     next({ name: 'home' })

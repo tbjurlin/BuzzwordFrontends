@@ -19,7 +19,24 @@ const handleSignIn = () => {
   const success = login(email.value, password.value)
   
   if (success) {
-    router.push({ name: 'dashboard' })
+    // Check if there's a redirect URL (for SSO flow)
+    const urlParams = new URLSearchParams(window.location.search)
+    const redirectUrl = urlParams.get('redirect')
+    
+    if (redirectUrl) {
+      // If there's a redirect URL, the login function will handle the redirect
+      // The window.location.href redirect in login() will happen automatically
+    } else {
+      // Clean up any URL parameters BEFORE navigating to dashboard
+      if (window.location.search) {
+        // Remove query parameters from URL without reloading
+        window.history.replaceState({}, '', window.location.pathname)
+      }
+      // Use nextTick to ensure the URL is cleaned and auth state is properly set
+      nextTick(() => {
+        router.push({ name: 'dashboard' })
+      })
+    }
   } else {
     errorMessage.value = 'Invalid credentials. Please try again.'
   }

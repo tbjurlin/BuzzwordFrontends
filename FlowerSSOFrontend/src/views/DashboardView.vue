@@ -15,6 +15,12 @@ onMounted(() => {
     router.push({ name: 'home' })
   }
 })
+
+// Function to access BRL app
+const accessBRL = () => {
+  // Redirect to BRL frontend (localhost:5173)
+  window.location.href = 'http://localhost:5173/'
+}
 </script>
 
 <template>
@@ -38,7 +44,7 @@ onMounted(() => {
               <h3 class="app-name">BRL Dashboard</h3>
               <p class="app-description">Business Resource Library</p>
             </div>
-            <button class="app-access-btn" disabled>
+            <button class="app-access-btn" @click="accessBRL">
               Access App
             </button>
           </div>
