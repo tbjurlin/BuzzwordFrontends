@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../components/HomeView.vue'
-import Profile from '../views/Profile.vue'
+import HomeView from '../views/HomeView.vue'
+import DashboardView from '../views/DashboardView.vue'
+import CreateProfileView from '../views/CreateProfileView.vue'
+import AdminPendingRequestsView from '../views/AdminPendingRequestsView.vue'
 import { useAuth } from '../stores/auth'
 
 const router = createRouter({
@@ -12,24 +14,41 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: Profile,
+      path: '/create-profile',
+      name: 'create-profile',
+      component: CreateProfileView,
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/admin/pending-requests',
+      name: 'admin-pending-requests',
+      component: AdminPendingRequestsView,
+      meta: { requiresAuth: true, requiresAdmin: true }
     },
   ],
 })
 
 // Navigation guard to protect routes
 router.beforeEach((to, from, next) => {
-  const { isAuthenticated, checkAuth } = useAuth()
+  const { isAuthenticated, checkAuth, isAdmin } = useAuth()
   
   // Check if user is authenticated from localStorage
   checkAuth()
   
+  // Check authentication requirement
   if (to.meta.requiresAuth && !isAuthenticated.value) {
     next({ name: 'home' })
-  } else {
+  } 
+  // Check admin requirement
+  else if (to.meta.requiresAdmin && !isAdmin()) {
+    next({ name: 'dashboard' })
+  } 
+  else {
     next()
   }
 })
