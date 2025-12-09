@@ -1,0 +1,218 @@
+/* Modal Overlay and Container - Matching UserProfileModal structure */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 41, 25, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modal-container {
+  background: var(--color-loginBackground);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(60, 60, 60, 0.3);
+  border: 2px solid var(--color-background-invert);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 2px solid var(--color-background-invert);
+  background-color: var(--color-background-soft);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  font-family: "Bree Serif", serif;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-lighterText);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: 4px;
+}
+
+.close-btn:hover {
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+.modal-content {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+  background-color: var(--color-loginBackground);
+}
+
+/* Admin Panel Info */
+.admin-panel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-lighterText);
+  font-family: "Bree Serif", serif;
+}
+
+/* Admin Actions */
+.admin-actions {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-action-card {
+  background: var(--color-background-soft);
+  border: 2px solid var(--color-lighterText);
+  border-radius: 6px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.admin-action-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-darkBlueAccent);
+}
+
+.action-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-darkBlueAccent);
+}
+
+.action-icon i {
+  width: 40px;
+  height: 40px;
+  stroke: var(--color-darkBlueAccent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.action-info {
+  flex: 1;
+  position: relative;
+}
+
+.action-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 0.25rem;
+  font-family: "Bree Serif", serif;
+}
+
+.action-description {
+  font-size: 0.9rem;
+  color: var(--color-lighterText);
+  margin: 0;
+}
+
+.pending-badge {
+  display: inline-block;
+  background: var(--color-error);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}
+
+/* Modal Transitions */
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .modal-container,
+.modal-leave-active .modal-container {
+  transition: transform 0.2s ease;
+}
+
+.modal-enter-from .modal-container,
+.modal-leave-to .modal-container {
+  transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-container {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .admin-action-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .action-icon {
+    font-size: 2rem;
+  }
+}

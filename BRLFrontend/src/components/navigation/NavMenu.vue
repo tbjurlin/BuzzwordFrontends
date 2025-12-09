@@ -62,7 +62,7 @@ const closeMenu = () => {
         Temp Resource
       </RouterLink>
       <a 
-        href="https://flower-sso.example.com" 
+        href="http://localhost:5174/" 
         class="nav-link" 
         target="_blank"
         @click="closeMenu"

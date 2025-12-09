@@ -21,26 +21,36 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);*/
 
   --theme-skyBlue: #aab9f2;
-  --theme-white: #ffff;
-  --theme-OtherWhite: #f8f8f8;
-  --theme-mutedWhite: #f2f2f2;
+  --theme-white: #ffff; /* hardboiled */
+  --theme-sweat: #e6edff; 
+  --theme-mutedWhite: #f5f5f5;
+  --theme-lightGrey: #f0f0f0;
   --theme-yellow: #ffbf00;
   --theme-darkBrown: #2E2919;
   --theme-grey: rgba(60, 60, 60, 0.66);
-  --theme-navyBlue: #1b2336;
+  --theme-navyBlue: #2F3D5E;
   --theme-orange: #db2e1f;
+
+  .bree-serif-regular {
+  font-family: "Bree Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--theme-white);
-  --color-loginBackground: var(--theme-OtherWhite);
+  --color-background: var(--theme-lightGrey);
+  --color-loginBackground: var(--theme-mutedWhite);
   --color-background-soft: var(--theme-mutedWhite);
+  --color-background-invert: var(--theme-darkBrown);
 
   --color-darkBlueAccent: var(--theme-navyBlue);
   --color-lightBlueAccent: var(--theme-skyBlue);
 
   --color-text: var(--theme-darkBrown);
+  --color-text-invert: var(--theme-white);
   --color-lighterText: var(--theme-grey);
 
   --color-banner: var(--theme-yellow);
