@@ -51,14 +51,17 @@ router.beforeEach((to, from, next) => {
   // Check if user is authenticated
   const isAuthenticated = checkAuth()
   
-  // If not authenticated, redirect to FlowerSSO ONCE with return URL
+  // If not authenticated, redirect to FlowerSSO with return URL
   if (!isAuthenticated) {
     // Build the redirect URL to come back to BRL after login
     const currentUrl = window.location.origin + to.fullPath
     const ssoUrl = `${FlowerSSOUrl}?redirect=${encodeURIComponent(currentUrl)}`
+    
+    // Prevent navigation and redirect to SSO
     window.location.href = ssoUrl
-    return false
+    return // Don't call next(), just redirect
   }
+  
   next()
 })
 
