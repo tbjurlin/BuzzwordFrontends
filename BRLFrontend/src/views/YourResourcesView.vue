@@ -1,27 +1,23 @@
 <script setup lang="ts">
 import ResourceList from '@/components/resourcelist/ResourceList.vue';
 import { useResource } from '@/composables/useResource';
-import { Resource } from '@/types';
-import { onMounted, ref } from 'vue';
+import type { Resource } from '@/types';
+import { ref, onMounted } from 'vue'
 
-const resources = ref<Resource[]>([])
-
-const listAllResources = useResource().listAllResources;
+const resources = ref<Resource[]>([]);
+const listMyResources = useResource().listMyResources
 
 onMounted(() => {
-  listAllResources(
+  listMyResources(
     (res) => resources.value = res,
-    (reason) => {
-      console.log(reason)
-    }
+    (reason) => {}
   )
 })
 </script>
 
 <template>
-  <div class="home-view">
-    <!-- Empty home page - content can be added here -->
-    <h2>Available Resources</h2>
+  <div class="view-resources">
+    <h2>Your Resources</h2>
     <ResourceList :resources="resources"/>
   </div>
 </template>
@@ -29,6 +25,5 @@ onMounted(() => {
 <style scoped>
 @import '../assets/animations.css';
 @import '../assets/buttons.css';
-@import './styles/HomeView.css';
+@import './styles/ViewResourcesView.css';
 </style>
-

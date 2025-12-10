@@ -1,14 +1,18 @@
 <script setup lang="ts">
+import { useResource } from '@/composables/useResource'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 
 const formData = ref({
   title: '',
   description: '',
   url: '',
-  file: null as File | null,
 })
 
 const fileInputRef = ref<HTMLInputElement | null>(null)
+
+const createResource = useResource().createResource;
+const router = useRouter();
 
 const handleSubmit = () => {
   // Validate form
@@ -17,29 +21,28 @@ const handleSubmit = () => {
     return
   }
 
+  createResource(
+    formData.value.title,
+    formData.value.url,
+    formData.value.description,
+    (newId) => {
+      // Reset form
+      formData.value = {
+        title: '',
+        description: '',
+        url: '',
+      }
+
+      router.push({ name: 'resource', params: { id: newId } })
+    },
+    (reason) => {}
+  )
+
   // TODO: Implement actual API call to submit resource
   // For now, just log and show success message
 
-  // Reset form
-  formData.value = {
-    title: '',
-    description: '',
-    url: '',
-    file: null,
-  }
-  alert('Resource created successfully!')
 }
 
-const handleFileSelect = (e: Event) => {
-  const input = e.target as HTMLInputElement
-  if (input.files && input.files.length > 0) {
-    formData.value.file = input.files[0] || null
-  }
-}
-
-const triggerFileInput = () => {
-  fileInputRef.value?.click()
-}
 </script>
 
 <template>
@@ -71,20 +74,6 @@ const triggerFileInput = () => {
       <div class="form-group">
         <label for="url">URL</label>
         <input id="url" v-model="formData.url" type="url" placeholder="Enter resource URL" />
-      </div>
-
-      <div class="form-group">
-        <label>File Upload</label>
-        <input
-          ref="fileInputRef"
-          type="file"
-          style="display: none"
-          @change="handleFileSelect"
-        />
-        <button type="button" class="btn-secondary" @click="triggerFileInput">
-          Choose File
-        </button>
-        <span v-if="formData.file" class="file-name">{{ formData.file.name }}</span>
       </div>
 
       <div class="form-actions">

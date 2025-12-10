@@ -1,0 +1,4 @@
+.resource-action-items {
+    display: flex;
+    flex-direction: row;
+}

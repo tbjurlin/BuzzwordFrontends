@@ -46,20 +46,12 @@ const closeMenu = () => {
         Create Resource
       </RouterLink>
       <RouterLink 
-        to="/view-resources" 
+        to="/your-resources" 
         class="nav-link" 
         active-class="active"
         @click="closeMenu"
       >
-        View Resources
-      </RouterLink>
-      <RouterLink 
-        to="/resource/17" 
-        class="nav-link" 
-        active-class="active"
-        @click="closeMenu"
-      >
-        Temp Resource
+        Your Resources
       </RouterLink>
     </div>
 
