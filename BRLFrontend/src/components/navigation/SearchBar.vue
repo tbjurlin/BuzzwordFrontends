@@ -28,6 +28,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
       type="text"
       placeholder="Search resources..."
       class="search-input"
+      maxlength="200"
       @keypress="handleKeyPress"
     />
     <button @click="handleSearch" class="search-btn">Search</button>
