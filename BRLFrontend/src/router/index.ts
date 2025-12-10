@@ -15,9 +15,9 @@ const router = createRouter({
       component: () => import('../views/CreateResourceView.vue'),
     },
     {
-      path: '/view-resources',
-      name: 'viewResources',
-      component: () => import('../views/ViewResourcesView.vue'),
+      path: '/your-resources',
+      name: 'yourResources',
+      component: () => import('../views/YourResourcesView.vue'),
     },
     {
       path: '/resource/:id',
