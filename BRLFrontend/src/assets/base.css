@@ -1,4 +1,6 @@
 /* color palette from <https://github.com/vuejs/theme> */
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
 :root {
   --theme-tears: #AAB9F2;
   --theme-sweat: #e6edff;
@@ -9,13 +11,8 @@
   --theme-blood: #DB2E1F;
   --theme-hardboiled: #FFFFFF;
   --theme-softboiled: #F5F5F5;
-
-  .bree-serif-regular {
-  font-family: "Bree Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
+  --theme-bepisboiled: #444444;
+  --theme-orangutan: #FF4500;
 }
 
 /* semantic color variables for this project */
@@ -31,11 +28,13 @@
   --color-heading: var(--theme-dirt);
   --color-text: var(--theme-dirt);
   --color-text-invert: var(--theme-dirt);
+  --color-text-soft: var(--theme-bepisboiled);
 
   --color-error: var(--theme-blood);
 
   --color-button: var(--theme-bee);
   --color-button-hover: var(--theme-tears);
+  --color-button-invert: var(--theme-orangutan);
 
   --color-border: var(--theme-bepis);
   --color-border-hover: var(--theme-tears);
@@ -112,4 +111,14 @@ video,
 iframe {
   max-width: 100%;
   height: auto;
+}
+
+/* Heading fonts */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Bree Serif', serif;
 }

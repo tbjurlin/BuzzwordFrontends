@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
   <div class="home-view">
     <!-- Empty home page - content can be added here -->
-    <h2>Available Resources</h2>
+    <h1>Available Resources</h1>
     <ResourceList :resources="resources"/>
   </div>
 </template>
