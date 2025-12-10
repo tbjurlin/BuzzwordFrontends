@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import('../views/ResourceView.vue'),
     },
     {
+      path: '/search',
+      name: 'search',
+      component: () => import('../views/SearchResultView.vue')
+    },
+    {
       path: '/flower-sso',
       name: 'flowerSSO',
       beforeEnter: () => {
