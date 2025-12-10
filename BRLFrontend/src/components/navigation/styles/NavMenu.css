@@ -45,6 +45,11 @@
   transition: all 0.3s ease;
   border-bottom: 2px solid transparent;
   white-space: nowrap;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  display: inline-block;
 }
 
 .nav-link:hover {

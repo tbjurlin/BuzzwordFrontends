@@ -191,6 +191,11 @@
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
   width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .app-access-btn:hover:not(:disabled) {

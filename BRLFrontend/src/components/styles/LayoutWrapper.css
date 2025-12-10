@@ -41,6 +41,30 @@
   gap: 1rem;
 }
 
+/* SSO Button Styles */
+.sso-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.sso-button:hover {
+  color: var(--color-button);
+}
+
+.sso-button:active {
+  transform: scale(0.95);
+}
+
 
 /* Main Content Styles */
 .main-content {

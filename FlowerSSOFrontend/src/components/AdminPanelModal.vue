@@ -27,6 +27,11 @@ const goToPendingRequests = () => {
   router.push({ name: 'admin-pending-requests' })
   closeModal()
 }
+// Navigate to user list page and close modal
+const goToUserList = () => {
+  router.push({ name: 'admin-users' })
+  closeModal()
+}
 
 // Watch for modal open state and replace feather icons when it opens
 watch(() => props.isOpen, async (newValue) => {
@@ -54,14 +59,14 @@ watch(() => props.isOpen, async (newValue) => {
           
           <div class="modal-content">
             <div class="admin-panel-info">
-              <!-- Admin Actions Section -->
+              <!-- Manager Actions Section -->
               <div class="admin-section">
-                <h3 class="section-title">Administrative Actions</h3>
+                <h3 class="section-title">Admin Actions</h3>
                 
                 <div class="admin-actions">
                   <button class="admin-action-card" @click="goToPendingRequests">
                     <div class="action-icon">
-                      <i data-feather="users"></i>
+                      <i data-feather="user-plus"></i>
                     </div>
                     <div class="action-info">
                       <h3 class="action-title">Pending Account Requests</h3>
@@ -71,6 +76,17 @@ watch(() => props.isOpen, async (newValue) => {
                       <span v-if="pendingCount > 0" class="pending-badge">
                         {{ pendingCount }} pending
                       </span>
+                    </div>
+                  </button>
+                  <button class="admin-action-card" @click="goToUserList">
+                    <div class="action-icon">
+                      <i data-feather="users"></i>
+                    </div>
+                    <div class="action-info">
+                      <h3 class="action-title">User List</h3>
+                      <p class="action-description">
+                        View and manage all registered users
+                      </p>
                     </div>
                   </button>
                 </div>

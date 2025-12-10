@@ -53,14 +53,6 @@ const closeMenu = () => {
       >
         Your Resources
       </RouterLink>
-      <a 
-        href="http://localhost:5174/" 
-        class="nav-link" 
-        target="_blank"
-        @click="closeMenu"
-      >
-        Flower SSO
-      </a>
     </div>
 
     <!-- Overlay for mobile menu -->
