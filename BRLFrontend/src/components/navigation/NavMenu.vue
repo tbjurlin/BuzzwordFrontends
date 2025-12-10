@@ -46,12 +46,12 @@ const closeMenu = () => {
         Create Resource
       </RouterLink>
       <RouterLink 
-        to="/view-resources" 
+        to="/your-resources" 
         class="nav-link" 
         active-class="active"
         @click="closeMenu"
       >
-        View Resources
+        Your Resources
       </RouterLink>
       <a 
         href="http://localhost:5174/" 

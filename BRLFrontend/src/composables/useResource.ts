@@ -37,13 +37,12 @@ export function useResource() {
         }
     }
 
-    const listResourcesByUserId = (userId: number, onSuccess: (resources: Resource[]) => void, onFailure: (response: any) => void) => {
+    const listMyResources = (onSuccess: (resources: Resource[]) => void, onFailure: (response: any) => void) => {
         if ($cookies) {
             const ssoToken = getSSOToken($cookies);
             if (ssoToken) {
-                constructPostCall(
-                    import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/",
-                    { "user": userId},
+                constructGetCall(
+                    import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource-own",
                     ssoToken
                 ).then((response) => {
                     onSuccess(response.data.map(Resource.fromResponse))
@@ -126,6 +125,7 @@ export function useResource() {
     return {
         listAllResources,
         listResourcesByKeywords,
+        listMyResources,
         getResourceById,
         createResource,
         updateResource,
