@@ -112,13 +112,3 @@ iframe {
   max-width: 100%;
   height: auto;
 }
-
-/* Heading fonts */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Bree Serif', serif;
-}

@@ -109,7 +109,7 @@ const handleEdit = () => {
 }
 
 const handleDelete = () => {
-    if (resource.value && confirm('Are you sure you want to delete this resource?')) {
+    if (resource.value && confirm('Are you sure you want to delete this resource? This action cannot be undone.')) {
         isDeleting.value = true;
         deleteResource(
             resource.value.id,
@@ -144,7 +144,7 @@ const handleCommentEdit = (comment: Comment | Flag) => {
 const handleCommentDelete = (record: Comment | Flag) => {
     if (!resource.value) return;
 
-    if (confirm('Are you sure you want to delete this?')) {
+    if (confirm('Are you sure you want to delete this? This action cannot be undone.')) {
         if (record.constructor.name === 'Comment') {
             deleteComment(
                 resource.value.id,
