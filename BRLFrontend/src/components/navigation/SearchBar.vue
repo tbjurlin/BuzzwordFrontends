@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const searchQuery = ref('')
+const router = useRouter();
 
 const handleSearch = () => {
-  // TODO: Implement search functionality
-  // This should emit an event or update a shared state
+  router.push({
+    name: 'search',
+    query: {
+      q: searchQuery.value
+    }
+  })
 }
 
 const handleKeyPress = (event: KeyboardEvent) => {
@@ -22,6 +28,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
       type="text"
       placeholder="Search resources..."
       class="search-input"
+      maxlength="200"
       @keypress="handleKeyPress"
     />
     <button @click="handleSearch" class="search-btn">Search</button>
