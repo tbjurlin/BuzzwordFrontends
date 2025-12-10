@@ -19,7 +19,15 @@ const handleSignIn = () => {
   const success = login(email.value, password.value)
   
   if (success) {
-    router.push({ name: 'dashboard' })
+    // Clean up any URL parameters BEFORE navigating to dashboard
+    if (window.location.search) {
+      // Remove query parameters from URL without reloading
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+    // Always navigate to dashboard after successful login
+    nextTick(() => {
+      router.push({ name: 'dashboard' })
+    })
   } else {
     errorMessage.value = 'Invalid credentials. Please try again.'
   }

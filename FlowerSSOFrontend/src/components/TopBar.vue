@@ -50,7 +50,7 @@ onMounted(() => {
       </div>
       
       <div class="topbar-right">
-        <!-- Admin Panel Button - Only visible to admins -->
+        <!-- Admin Panel Button - Only visible to admins (admin role) -->
         <button v-if="userIsAdmin" @click="openAdminModal" class="admin-panel-btn" aria-label="Open admin panel">
           <div class="admin-icon">
             <i data-feather="shield"></i>

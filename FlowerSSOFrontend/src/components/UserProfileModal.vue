@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuth } from '../stores/auth'
+import { useRouter } from 'vue-router'
 import PasswordChange from './PasswordChange.vue'
+import ConfirmModal from './ConfirmModal.vue'
 
 const props = defineProps<{
   isOpen: boolean
@@ -11,8 +13,10 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const { currentUser } = useAuth()
+const router = useRouter()
+const { currentUser, deleteUser } = useAuth()
 const showPasswordChange = ref(false)
+const showDeleteConfirm = ref(false)
 
 const closeModal = () => {
   emit('close')
@@ -20,6 +24,24 @@ const closeModal = () => {
 
 const togglePasswordChange = () => {
   showPasswordChange.value = !showPasswordChange.value
+}
+
+const confirmDeleteAccount = () => {
+  showDeleteConfirm.value = true
+}
+
+const handleDeleteAccount = () => {
+  if (currentUser.value) {
+    deleteUser(currentUser.value.id)
+    showDeleteConfirm.value = false
+    closeModal()
+    // User will be logged out automatically by deleteUser function
+    router.push({ name: 'home' })
+  }
+}
+
+const cancelDelete = () => {
+  showDeleteConfirm.value = false
 }
 </script>
 
@@ -78,7 +100,12 @@ const togglePasswordChange = () => {
                 >
                   {{ showPasswordChange ? 'Cancel Change' : 'Change Password' }}
                 </button>
-                
+                <button 
+                    @click="confirmDeleteAccount" 
+                    class="btn-delete-account"
+                  >
+                    Delete My Account
+                  </button>
                 <Transition name="slide">
                   <div v-if="showPasswordChange" class="password-change-wrapper">
                     <PasswordChange />
@@ -90,6 +117,18 @@ const togglePasswordChange = () => {
         </div>
       </div>
     </Transition>
+
+    <!-- Delete Confirmation Modal -->
+    <ConfirmModal
+      :is-open="showDeleteConfirm"
+      title="Delete Your Account"
+      message="Are you sure you want to delete your account? This action is permanent and cannot be undone. You will be logged out immediately."
+      confirm-text="Delete Account"
+      cancel-text="Cancel"
+      :is-dangerous="true"
+      @confirm="handleDeleteAccount"
+      @cancel="cancelDelete"
+    />
   </Teleport>
 </template>
 

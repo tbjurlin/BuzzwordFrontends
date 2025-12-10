@@ -3,7 +3,7 @@ import { ref } from 'vue'
 // TEMP CLASS TO SIMULATE AUTHENTICATION
 
 // User role types
-export type UserRole = 'user' | 'manager' | 'admin'
+export type UserRole = 'user' | 'contributor' | 'manager'
 
 // User interface with role
 export interface User {
@@ -32,30 +32,30 @@ export interface PendingUserRequest {
   requestDate: Date
 }
 
-// Dummy admin user for testing
+// Dummy manager user for testing (manager acts as admin)
 const DUMMY_USER: User = {
   id: '1',
-  email: 'admin@example.com',
-  firstName: 'Admin',
+  email: 'manager@example.com',
+  firstName: 'Manager',
   lastName: 'User',
-  title: 'System Administrator',
+  title: 'System Manager',
   department: 'IT',
   country: 'United States',
-  role: 'admin',
+  role: 'manager',
   password: 'password'
 }
 
-// TEMPORARY: Regular user for testing (TO BE REMOVED)
-const TEMP_ADMIN: User = {
+// TEMPORARY: Contributor user for testing (TO BE REMOVED)
+const TEMP_CONTRIBUTOR: User = {
   id: '2',
-  email: 'temp.admin@example.com',
+  email: 'temp.contributor@example.com',
   firstName: 'Temp',
-  lastName: 'Admin',
-  title: 'Temporary Administrator',
-  department: 'IT',
+  lastName: 'Contributor',
+  title: 'Content Contributor',
+  department: 'Operations',
   country: 'United States',
-  role: 'admin',
-  password: 'admin123'
+  role: 'contributor',
+  password: 'contributor123'
 }
 
 // TEMPORARY: Regular user for testing (TO BE REMOVED)
@@ -72,7 +72,7 @@ const TEMP_USER: User = {
 }
 
 // Store for approved users (simulating database)
-const approvedUsers = ref<User[]>([DUMMY_USER, TEMP_ADMIN, TEMP_USER])
+const approvedUsers = ref<User[]>([DUMMY_USER, TEMP_CONTRIBUTOR, TEMP_USER])
 
 // Store for pending user requests
 const pendingRequests = ref<PendingUserRequest[]>([])
@@ -95,6 +95,16 @@ export function useAuth() {
       isAuthenticated.value = true
       // Store in localStorage for persistence
       localStorage.setItem('user', JSON.stringify(userWithoutPassword))
+      
+      // Store redirect URL if present (for later use in dashboard)
+      const urlParams = new URLSearchParams(window.location.search)
+      const redirectUrl = urlParams.get('redirect')
+      
+      if (redirectUrl) {
+        // Store the redirect URL for the dashboard to use
+        sessionStorage.setItem('pendingRedirect', redirectUrl)
+      }
+      
       return true
     }
     return false
@@ -169,14 +179,35 @@ export function useAuth() {
     localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests.value))
   }
 
-  // Check if current user is admin
+  // Check if current user is admin (manager role acts as admin)
   const isAdmin = () => {
-    return currentUser.value?.role === 'admin'
+    return currentUser.value?.role === 'manager'
   }
 
-  // Check if current user is manager or admin
-  const isManagerOrAdmin = () => {
-    return currentUser.value?.role === 'admin' || currentUser.value?.role === 'manager'
+  // Check if current user is contributor or manager
+  const isContributorOrManager = () => {
+    return currentUser.value?.role === 'contributor' || currentUser.value?.role === 'manager'
+  }
+
+  // Delete a user (manager can delete any user, users can delete themselves)
+  const deleteUser = (userId: string) => {
+    const userToDelete = approvedUsers.value.find(u => u.id === userId)
+    if (!userToDelete) {
+      return false
+    }
+
+    // Remove user from approved users list
+    approvedUsers.value = approvedUsers.value.filter(u => u.id !== userId)
+    
+    // Persist changes
+    localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers.value))
+    
+    // If user deleted their own account, log them out
+    if (currentUser.value?.id === userId) {
+      logout()
+    }
+    
+    return true
   }
 
   // Load pending requests from localStorage on initialization
@@ -199,6 +230,7 @@ export function useAuth() {
     currentUser,
     isAuthenticated,
     pendingRequests,
+    approvedUsers,
     login,
     logout,
     checkAuth,
@@ -206,6 +238,7 @@ export function useAuth() {
     approveRequest,
     denyRequest,
     isAdmin,
-    isManagerOrAdmin
+    isContributorOrManager,
+    deleteUser
   }
 }

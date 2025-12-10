@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import CreateProfileView from '../views/CreateProfileView.vue'
 import AdminPendingRequestsView from '../views/AdminPendingRequestsView.vue'
+import AdminUserListView from '../views/AdminUserListView.vue'
 import { useAuth } from '../stores/auth'
 
 const router = createRouter({
@@ -30,6 +31,12 @@ const router = createRouter({
       component: AdminPendingRequestsView,
       meta: { requiresAuth: true, requiresAdmin: true }
     },
+    {
+      path: '/admin/users',
+      name: 'admin-users',
+      component: AdminUserListView,
+      meta: { requiresAuth: true, requiresAdmin: true }
+    },
   ],
 })
 
@@ -39,6 +46,23 @@ router.beforeEach((to, from, next) => {
   
   // Check if user is authenticated from localStorage
   checkAuth()
+  
+  // Get redirect URL parameter if present
+  const urlParams = new URLSearchParams(window.location.search)
+  const redirectUrl = urlParams.get('redirect')
+  
+  // If user is authenticated and there's a redirect URL, and they're on the home page
+  // redirect them to dashboard (they can then use "Access App" button)
+  if (isAuthenticated.value && redirectUrl && to.name === 'home') {
+    next({ name: 'dashboard' })
+    return
+  }
+  
+  // Allow home and create-profile routes without authentication
+  if (to.name === 'home' || to.name === 'create-profile') {
+    next()
+    return
+  }
   
   // Check authentication requirement
   if (to.meta.requiresAuth && !isAuthenticated.value) {
