@@ -2,15 +2,16 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../stores/auth'
+import TopBar from '../components/TopBar.vue'
 
 const router = useRouter()
-const { currentUser, checkAuth, sendTokenTo } = useAuth()
+const { currentUser, getUser, sendTokenTo } = useAuth()
 
 const brlUrl = import.meta.env.VITE_BRL_URL
 
 // Ensure user data is loaded when component mounts
 onMounted(() => {
-  checkAuth()
+  getUser()
 
   // If still no user after checkAuth, redirect to home
   if (!currentUser.value) {
@@ -44,13 +45,14 @@ const accessBRL = () => {
   // }
 
 
-  sendTokenTo(brlUrl, import.meta.env.VITE_TOKEN, () => {
+  sendTokenTo(brlUrl, () => {
     window.location.href = brlUrl
   })
 }
 </script>
 
 <template>
+  <TopBar />
   <div class="dashboard-container">
     <div v-if="currentUser" class="dashboard-content">
       <!-- Connected Apps Box -->

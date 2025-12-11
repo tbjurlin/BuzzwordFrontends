@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth, type UserRole } from '../stores/auth'
+import TopBar from '../components/TopBar.vue'
 
 const router = useRouter()
 const { submitProfileRequest } = useAuth()
@@ -93,6 +94,8 @@ const handleCancel = () => {
 </script>
 
 <template>
+
+  <TopBar/>
   <div class="create-profile-container">
     <div class="create-profile-card">
       <h2 class="create-profile-title">Create Profile</h2>

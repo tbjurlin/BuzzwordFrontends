@@ -3,9 +3,10 @@ import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth, type PendingUserRequest } from '../stores/auth'
 import feather from 'feather-icons'
+import TopBar from '../components/TopBar.vue'
 
 const router = useRouter()
-const { pendingRequests, approveRequest, denyRequest, isAdmin, currentUser } = useAuth()
+const { pendingRequests, isAdmin, currentUser } = useAuth()
 
 // Check if user has admin access
 const hasAccess = computed(() => isAdmin())
@@ -41,14 +42,12 @@ const getRoleBadgeClass = (role: string) => {
 // Handle approve action
 const handleApprove = (requestId: string) => {
   if (confirm('Are you sure you want to approve this account request?')) {
-    approveRequest(requestId)
   }
 }
 
 // Handle deny action
 const handleDeny = (requestId: string) => {
   if (confirm('Are you sure you want to deny this account request? This action cannot be undone.')) {
-    denyRequest(requestId)
   }
 }
 
@@ -70,6 +69,7 @@ watch(pendingRequests, async () => {
 </script>
 
 <template>
+  <TopBar />
   <div class="pending-requests-container">
     <div class="pending-requests-header">
       <div class="header-content">
