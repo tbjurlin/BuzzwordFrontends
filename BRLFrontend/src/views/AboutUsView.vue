@@ -41,7 +41,6 @@ onMounted(() => {
     <!--Config file information from the BRL API-->
     <div class="about-us-view">
         <h1>{{ aboutUs?.title || 'About Us' }}</h1>
-        <br />
         <div class="about-us-content" v-if="aboutUs">
             <section class="mission-section">
                 <h2>Our Mission</h2>
