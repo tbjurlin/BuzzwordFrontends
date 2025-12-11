@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import feather from 'feather-icons'
 import { useAuth } from '../stores/auth'
 
 const router = useRouter()
-const { login } = useAuth()
+const { login, sendTokenTo } = useAuth()
 
 const email = ref('')
 const password = ref('')
@@ -13,21 +13,31 @@ const keepSignedIn = ref(false)
 const showPassword = ref(false)
 const errorMessage = ref('')
 
+const route = useRoute();
+
+
 const handleSignIn = () => {
   errorMessage.value = ''
   
   const success = login(email.value, password.value)
   
   if (success) {
-    // Clean up any URL parameters BEFORE navigating to dashboard
-    if (window.location.search) {
-      // Remove query parameters from URL without reloading
-      window.history.replaceState({}, '', window.location.pathname)
+    try {
+      if (route.query.redirect && typeof route.query.redirect === 'string') {
+        const redirect = new URL(route.query.redirect)
+        sendTokenTo(redirect.origin, () => window.location.href = redirect.toString())
+      } else {
+        // Always navigate to dashboard after successful login
+        nextTick(() => {
+          router.push({ name: 'dashboard' })
+        })
+      }
+    } catch {
+      // Always navigate to dashboard after successful login
+      nextTick(() => {
+        router.push({ name: 'dashboard' })
+      })
     }
-    // Always navigate to dashboard after successful login
-    nextTick(() => {
-      router.push({ name: 'dashboard' })
-    })
   } else {
     errorMessage.value = 'Invalid credentials. Please try again.'
   }

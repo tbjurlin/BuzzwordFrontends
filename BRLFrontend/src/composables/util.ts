@@ -1,14 +1,8 @@
 import axios from "axios"
-import type { VueCookies } from "vue-cookies"
 
-export function getSSOToken($cookies: VueCookies): string | null {
-    console.log($cookies)
-    console.log($cookies?.keys())
-    if ($cookies && $cookies.isKey('sso-token')) {
-        console.log($cookies.get('sso-token'))
-        return $cookies.get('sso-token')
-    }
-    return null
+
+export function getSSOToken(): string | null {
+    return window.localStorage.getItem("sso-token")
 }
 
 export function constructGetCall(url: string, ssoToken: string) {

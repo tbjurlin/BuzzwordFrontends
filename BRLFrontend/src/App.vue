@@ -6,8 +6,9 @@ import { useAuth } from './stores/auth'
 
 const router = useRouter()
 const { checkAuth } = useAuth()
+const firstAuth = ref(false)
 
-const FlowerSSOUrl = import.meta.env.VITE_FLOWER_SSO_URL || 'http://localhost:5174/'
+const FlowerSSOUrl = import.meta.env.VITE_FLOWER_SSO_URL
 
 let authCheckInterval: number | null = null
 
@@ -20,43 +21,52 @@ const redirectToSSO = () => {
 // Listen for storage changes (e.g., when user logs out from another tab)
 const handleStorageChange = (event: StorageEvent) => {
   // Check if the 'user' key was removed
-  if (event.key === 'user' && event.newValue === null) {
+  if (event.key === 'sso-token' && event.newValue === null) {
     redirectToSSO()
+    console.log("redirect from storage change")
+    console.log(event)
   }
 }
 
-// Listen for custom logout event
-const handleLogout = () => {
+const handleTokenInvalid = () => {
   redirectToSSO()
 }
 
 // Periodic authentication check
 const periodicAuthCheck = () => {
-  if (!checkAuth()) {
-    redirectToSSO()
-  }
+  checkAuth((isAuthed) => {
+    if (!isAuthed) {
+      redirectToSSO()
+      console.log("redirect from period")
+    }
+  })
 }
 
 onMounted(() => {
   // Add storage event listener to detect logout from other tabs/windows
   window.addEventListener('storage', handleStorageChange)
-  
-  // Add custom logout event listener
-  window.addEventListener('auth-logout', handleLogout)
+
+  window.addEventListener('tokenInvalid', handleTokenInvalid)
+
   
   // Do an initial auth check
-  if (!checkAuth()) {
-    redirectToSSO()
-    return
-  }
+  checkAuth((isAuthed) => {
+    if (!isAuthed) {
+      redirectToSSO()
+      console.log("redirect from mount")
+    } else {
+      firstAuth.value = true
+    }
+  })
   
   // Set up periodic auth check every 5 seconds
-  authCheckInterval = window.setInterval(periodicAuthCheck, 5000)
+  authCheckInterval = window.setInterval(periodicAuthCheck, 30000)
 })
 
 onUnmounted(() => {
   window.removeEventListener('storage', handleStorageChange)
-  window.removeEventListener('auth-logout', handleLogout)
+
+  window.removeEventListener('tokenInvalid', handleTokenInvalid)
   
   if (authCheckInterval !== null) {
     clearInterval(authCheckInterval)
@@ -65,9 +75,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <LayoutWrapper>
+  <LayoutWrapper v-if="firstAuth">
     <RouterView />
   </LayoutWrapper>
+  <h1 v-else>Authenticating</h1>
 </template>
 
 <style scoped>

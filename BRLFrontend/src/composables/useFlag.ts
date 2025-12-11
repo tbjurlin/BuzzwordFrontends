@@ -1,15 +1,12 @@
-import type { VueCookies } from "vue-cookies"
 import { constructDeleteCall, constructPostCall, constructPutCall, getSSOToken } from "./util";
 import { inject } from "vue";
 
 
 export function useFlag() {
 
-    const $cookies = inject<VueCookies>('$cookies');
 
     const createFlag = (resourceId: number, contents: string, onSuccess: (newId: number) => void, onFailure: (reason: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+            const ssoToken = getSSOToken()
 
             if (ssoToken) {
                 constructPostCall(
@@ -22,12 +19,10 @@ export function useFlag() {
                     (response) => onSuccess(response.data.reviewFlagId)
                 ).catch(onFailure)
             }
-        }
     }
 
     const updateFlag = (resourceId: number, flagId: number, contents: string, onSuccess: () => void, onFailure: (reason: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+            const ssoToken = getSSOToken()
 
             if (ssoToken) {
                 constructPutCall(
@@ -40,12 +35,10 @@ export function useFlag() {
                     (_response) => onSuccess()
                 ).catch(onFailure)
             }
-        }
     }
 
     const deleteFlag = (resourceId: number, flagId: number, onSuccess: () => void, onFailure: (reasone: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+            const ssoToken = getSSOToken()
 
             if (ssoToken) {
                 constructDeleteCall(
@@ -55,7 +48,6 @@ export function useFlag() {
                     (_response) => onSuccess()
                 ).catch(onFailure)
             }
-        }
     }
 
     return {

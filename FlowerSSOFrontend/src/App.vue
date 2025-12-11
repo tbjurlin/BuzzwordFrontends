@@ -4,16 +4,19 @@ import LayoutWrapper from './components/LayoutWrapper.vue'
 import FooterBar from './components/FooterBar.vue'
 import TopBar from './components/TopBar.vue'
 import { useAuth } from './stores/auth'
+import { onMounted, ref } from 'vue'
 
-const { isAuthenticated } = useAuth()
+
+const { isAuthenticated, checkAuth } = useAuth()
+const brlUrl = import.meta.env.VITE_BRL_URL
+
+onMounted(() => {
+  checkAuth((_) => {})
+})
 </script>
 
 <template>
-  <TopBar v-if="isAuthenticated" />
-  <LayoutWrapper v-if="!isAuthenticated">
-    <RouterView />
-  </LayoutWrapper>
-  <div v-else class="authenticated-content">
+  <div :class="{'authenticated-content': isAuthenticated}">
     <RouterView />
   </div>
   <FooterBar />

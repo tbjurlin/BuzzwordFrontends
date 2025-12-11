@@ -8,7 +8,7 @@ const FlowerSSOUrl = import.meta.env.VITE_FLOWER_SSO_URL || 'http://localhost:51
 
 const redirectToSSO = () => {
   // Redirect to FlowerSSO dashboard (user remains logged in)
-  window.location.href = `${FlowerSSOUrl}dashboard`
+  window.location.href = `${FlowerSSOUrl}/dashboard`
 }
 </script>
 

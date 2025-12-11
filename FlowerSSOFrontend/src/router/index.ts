@@ -36,39 +36,25 @@ const router = createRouter({
 
 // Navigation guard to protect routes
 router.beforeEach((to, from, next) => {
-  const { isAuthenticated, checkAuth, isAdmin } = useAuth()
-  
+  const { checkAuth, isAdmin } = useAuth()
+
   // Check if user is authenticated from localStorage
-  checkAuth()
-  
-  // Get redirect URL parameter if present
-  const urlParams = new URLSearchParams(window.location.search)
-  const redirectUrl = urlParams.get('redirect')
-  
-  // If user is authenticated and there's a redirect URL, and they're on the home page
-  // redirect them to dashboard (they can then use "Access App" button)
-  if (isAuthenticated.value && redirectUrl && to.name === 'home') {
-    next({ name: 'dashboard' })
-    return
-  }
-  
-  // Allow home route without authentication
-  if (to.name === 'home') {
-    next()
-    return
-  }
-  
-  // Check authentication requirement
-  if (to.meta.requiresAuth && !isAuthenticated.value) {
-    next({ name: 'home' })
-  } 
-  // Check admin requirement
-  else if (to.meta.requiresAdmin && !isAdmin()) {
-    next({ name: 'dashboard' })
-  } 
-  else {
-    next()
-  }
+  checkAuth((isAuthed) => {
+    if (isAuthed) {
+      if (to.name === 'home') {
+        next({ name: 'dashboard' })
+      } else {
+        next()
+      }
+    } else {
+      if (to.name === 'home') {
+        next()
+      } else {
+        console.log("not authed")
+        next({ name: 'home', query: to.query })
+      }
+    }
+  })
 })
 
 export default router
