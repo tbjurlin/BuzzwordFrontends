@@ -41,6 +41,10 @@ onMounted(() => {
                     </div>
                 </div>
             </section>
+
+            <section class="copyright-section">
+                <p>{{ aboutUs.copyright }}</p>
+            </section>
         </div>
         <div v-else class="loading">
             <p>Loading...</p>
