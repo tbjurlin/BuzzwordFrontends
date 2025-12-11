@@ -109,6 +109,8 @@ h2 {
     font-size: 1.0rem;
     color: var(--color-text);
     font-weight: 500;
+    flex-direction: row;
+    align-items: center;
 }
 
 .flag-warning {

@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DashboardView from '../views/DashboardView.vue'
-import CreateProfileView from '../views/CreateProfileView.vue'
 import AdminPendingRequestsView from '../views/AdminPendingRequestsView.vue'
 import AdminUserListView from '../views/AdminUserListView.vue'
 import { useAuth } from '../stores/auth'
@@ -13,11 +12,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-    },
-    {
-      path: '/create-profile',
-      name: 'create-profile',
-      component: CreateProfileView,
     },
     {
       path: '/dashboard',
@@ -58,8 +52,8 @@ router.beforeEach((to, from, next) => {
     return
   }
   
-  // Allow home and create-profile routes without authentication
-  if (to.name === 'home' || to.name === 'create-profile') {
+  // Allow home route without authentication
+  if (to.name === 'home') {
     next()
     return
   }

@@ -210,6 +210,29 @@ export function useAuth() {
     return true
   }
 
+  // Create a new user directly (admin only, no approval needed)
+  const createUser = (userData: Omit<User, 'id'>): boolean => {
+    // Check if user with this email already exists
+    const existingUser = approvedUsers.value.find(u => u.email === userData.email)
+    if (existingUser) {
+      return false
+    }
+
+    // Create new user
+    const newUser: User = {
+      ...userData,
+      id: Date.now().toString()
+    }
+    
+    // Add to approved users
+    approvedUsers.value.push(newUser)
+    
+    // Persist changes
+    localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers.value))
+    
+    return true
+  }
+
   // Load pending requests from localStorage on initialization
   const loadPersistedData = () => {
     const storedRequests = localStorage.getItem('pendingRequests')
@@ -239,6 +262,7 @@ export function useAuth() {
     denyRequest,
     isAdmin,
     isContributorOrManager,
-    deleteUser
+    deleteUser,
+    createUser
   }
 }
