@@ -2,3 +2,64 @@
     display: flex;
     flex-direction: row;
 }
+
+h2 {
+    font-weight: bold;
+}
+
+.comment-container {
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.comment-container:hover {
+    background-color: var(--color-hover);
+    cursor: pointer;
+}
+
+.resource-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.resource-title-row h2 {
+    margin: 0;
+    flex: 1;
+}
+
+.resource-uploader {
+    font-size: 0.9rem;
+    color: var(--color-text-soft);
+    margin: 0.3rem 0;
+}
+
+.resource-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0.5rem 0;
+    line-height: 1.4;
+}
+
+.resource-flag-button {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.resource-flag-button:hover {
+    color: var(--theme-blood);
+}
+
+.resource-flag-button.is-flagged {
+    color: var(--theme-blood);
+}

@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^1.13.2",
     "cross-storage": "^1.0.0",
+    "dayjs": "^1.11.19",
     "feather-icons": "^4.29.2",
     "vue": "^3.5.25",
     "vue-feather": "^2.0.0",

@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <div class="view-resources">
-    <h2>Your Resources</h2>
+    <h1>Your Resources</h1>
     <ResourceList :resources="resources"/>
   </div>
 </template>
