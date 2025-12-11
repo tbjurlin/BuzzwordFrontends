@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import CreateProfileView from '../views/CreateProfileView.vue'
-import AdminPendingRequestsView from '../views/AdminPendingRequestsView.vue'
 import AdminUserListView from '../views/AdminUserListView.vue'
 import { useAuth } from '../stores/auth'
 
@@ -24,12 +23,6 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardView,
       meta: { requiresAuth: true }
-    },
-    {
-      path: '/admin/pending-requests',
-      name: 'admin-pending-requests',
-      component: AdminPendingRequestsView,
-      meta: { requiresAuth: true, requiresAdmin: true }
     },
     {
       path: '/admin/users',

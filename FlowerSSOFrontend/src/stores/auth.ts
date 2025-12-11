@@ -4,7 +4,7 @@ import { ref } from 'vue'
 // TEMP CLASS TO SIMULATE AUTHENTICATION
 
 // User role types
-export type UserRole = 'user' | 'contributor' | 'manager'
+export type UserRole = 'user' | 'developer' | 'manager'
 
 // User interface with role
 export interface User {
@@ -55,7 +55,7 @@ const TEMP_CONTRIBUTOR: User = {
   title: 'Content Contributor',
   department: 'Operations',
   country: 'United States',
-  role: 'contributor',
+  role: 'developer',
   password: 'contributor123'
 }
 
@@ -75,8 +75,6 @@ const TEMP_USER: User = {
 // Store for approved users (simulating database)
 const approvedUsers = ref<User[]>([DUMMY_USER, TEMP_CONTRIBUTOR, TEMP_USER])
 
-// Store for pending user requests
-const pendingRequests = ref<PendingUserRequest[]>([])
 
 const currentUser = ref<User | null>(null)
 const isAuthenticated = ref(false)
@@ -150,18 +148,6 @@ export function useAuth() {
     // }
   }
 
-  // Submit a profile creation request
-  const submitProfileRequest = (userData: Omit<PendingUserRequest, 'id' | 'requestDate'>) => {
-    const newRequest: PendingUserRequest = {
-      ...userData,
-      id: Date.now().toString(),
-      requestDate: new Date()
-    }
-    pendingRequests.value.push(newRequest)
-    // Persist to localStorage
-    localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests.value))
-  }
-
   // Check if current user is admin (manager role acts as admin)
   const isAdmin = () => {
     return currentUser.value?.role === 'manager'
@@ -169,7 +155,7 @@ export function useAuth() {
 
   // Check if current user is contributor or manager
   const isContributorOrManager = () => {
-    return currentUser.value?.role === 'contributor' || currentUser.value?.role === 'manager'
+    return currentUser.value?.role === 'developer' || currentUser.value?.role === 'manager'
   }
 
   // Delete a user (manager can delete any user, users can delete themselves)
@@ -196,13 +182,11 @@ export function useAuth() {
   return {
     currentUser,
     isAuthenticated,
-    pendingRequests,
     approvedUsers,
     login,
     logout,
     getUser,
     checkAuth,
-    submitProfileRequest,
     isAdmin,
     isContributorOrManager,
     deleteUser,
