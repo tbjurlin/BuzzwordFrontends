@@ -4,14 +4,14 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '../stores/auth'
 
 const router = useRouter()
-const { currentUser, checkAuth } = useAuth()
+const { currentUser, checkAuth, sendTokenTo } = useAuth()
 
-const BRL_URL = import.meta.env.VITE_BRL_URL || 'http://localhost:5173/'
+const brlUrl = import.meta.env.VITE_BRL_URL
 
 // Ensure user data is loaded when component mounts
 onMounted(() => {
   checkAuth()
-  
+
   // If still no user after checkAuth, redirect to home
   if (!currentUser.value) {
     router.push({ name: 'home' })
@@ -20,28 +20,33 @@ onMounted(() => {
 
 // Function to access BRL app
 const accessBRL = () => {
-  // Check if there's a pending redirect URL from SSO flow
-  const pendingRedirect = sessionStorage.getItem('pendingRedirect')
-  
-  // Get the user data to pass as token
-  const userData = localStorage.getItem('user')
-  
-  if (pendingRedirect) {
-    // Clear the stored redirect and go to the original requested URL
-    sessionStorage.removeItem('pendingRedirect')
-    const redirectUrl = new URL(pendingRedirect)
-    if (userData) {
-      redirectUrl.searchParams.set('token', userData)
-    }
-    window.location.href = redirectUrl.toString()
-  } else {
-    // Default: redirect to BRL frontend home with token
-    const brlUrl = new URL(BRL_URL)
-    if (userData) {
-      brlUrl.searchParams.set('token', userData)
-    }
-    window.location.href = brlUrl.toString()
-  }
+  // // Check if there's a pending redirect URL from SSO flow
+  // const pendingRedirect = sessionStorage.getItem('pendingRedirect')
+
+  // // Get the user data to pass as token
+  // const userData = localStorage.getItem('user')
+
+  // if (pendingRedirect) {
+  //   // Clear the stored redirect and go to the original requested URL
+  //   sessionStorage.removeItem('pendingRedirect')
+  //   const redirectUrl = new URL(pendingRedirect)
+  //   if (userData) {
+  //     redirectUrl.searchParams.set('token', userData)
+  //   }
+  //   window.location.href = redirectUrl.toString()
+  // } else {
+  //   // Default: redirect to BRL frontend home with token
+  //   const brlUrl = new URL(BRL_URL)
+  //   if (userData) {
+  //     brlUrl.searchParams.set('token', userData)
+  //   }
+  //   window.location.href = brlUrl.toString()
+  // }
+
+
+  sendTokenTo(brlUrl, import.meta.env.VITE_TOKEN, () => {
+    window.location.href = brlUrl
+  })
 }
 </script>
 
@@ -51,7 +56,7 @@ const accessBRL = () => {
       <!-- Connected Apps Box -->
       <div class="connected-apps-box">
         <h2 class="box-title">Connected Apps</h2>
-        
+
         <div class="apps-grid">
           <!-- BRL App Card -->
           <div class="app-card">
@@ -168,7 +173,7 @@ const accessBRL = () => {
         </div>
       </div>
     </div>
-    
+
     <div v-else class="loading-message">
       <p>Loading dashboard...</p>
     </div>

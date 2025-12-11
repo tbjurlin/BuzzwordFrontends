@@ -5,7 +5,9 @@ import FooterBar from './components/FooterBar.vue'
 import TopBar from './components/TopBar.vue'
 import { useAuth } from './stores/auth'
 
+
 const { isAuthenticated } = useAuth()
+const brlUrl = import.meta.env.VITE_BRL_URL
 </script>
 
 <template>

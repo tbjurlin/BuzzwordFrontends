@@ -1,15 +1,12 @@
-import type { VueCookies } from "vue-cookies"
 import { constructDeleteCall, constructPostCall, getSSOToken } from "./util";
 import { inject } from "vue";
 
 
 export function useUpvote() {
 
-    const $cookies = inject<VueCookies>('$cookies');
 
     const createUpvote = (resourceId: number, onSuccess: (newId: number) => void, onFailure: (reason: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+            const ssoToken = getSSOToken()
 
             if (ssoToken) {
                 constructPostCall(
@@ -20,12 +17,10 @@ export function useUpvote() {
                     (response) => onSuccess(response.data.upvoteId)
                 ).catch(onFailure)
             }
-        }
     }
 
     const deleteUpvote = (resourceId: number, upvoteId: number, onSuccess: () => void, onFailure: (reasone: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+            const ssoToken = getSSOToken()
 
             if (ssoToken) {
                 constructDeleteCall(
@@ -35,7 +30,6 @@ export function useUpvote() {
                     (_response) => onSuccess()
                 ).catch(onFailure)
             }
-        }
     }
 
     return {

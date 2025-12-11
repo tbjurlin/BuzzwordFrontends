@@ -1,60 +1,52 @@
-import type { VueCookies } from "vue-cookies"
 import { constructDeleteCall, constructPostCall, constructPutCall, getSSOToken } from "./util";
 import { inject } from "vue";
 
 
 export function useComment() {
 
-    const $cookies = inject<VueCookies>('$cookies');
 
     const createComment = (resourceId: number, contents: string, onSuccess: (newId: number) => void, onFailure: (reason: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+        const ssoToken = getSSOToken();
 
-            if (ssoToken) {
-                constructPostCall(
-                    import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/" + resourceId + "/comment",
-                    {
-                        "contents": contents,
-                    },
-                    ssoToken,
-                ).then(
-                    (response) => onSuccess(response.data.resourceId)
-                ).catch(onFailure)
-            }
+        if (ssoToken) {
+            constructPostCall(
+                import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/" + resourceId + "/comment",
+                {
+                    "contents": contents,
+                },
+                ssoToken,
+            ).then(
+                (response) => onSuccess(response.data.resourceId)
+            ).catch(onFailure)
         }
     }
 
     const updateComment = (resourceId: number, commentId: number, contents: string, onSuccess: () => void, onFailure: (reason: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+        const ssoToken = getSSOToken()
 
-            if (ssoToken) {
-                constructPutCall(
-                    import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/" + resourceId + "/comment/" + commentId,
-                    {
-                        "contents": contents,
-                    },
-                    ssoToken,
-                ).then(
-                    (_response) => onSuccess()
-                ).catch(onFailure)
-            }
+        if (ssoToken) {
+            constructPutCall(
+                import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/" + resourceId + "/comment/" + commentId,
+                {
+                    "contents": contents,
+                },
+                ssoToken,
+            ).then(
+                (_response) => onSuccess()
+            ).catch(onFailure)
         }
     }
 
     const deleteComment = (resourceId: number, commentId: number, onSuccess: () => void, onFailure: (reasone: any) => void) => {
-        if ($cookies) {
-            const ssoToken = getSSOToken($cookies)
+        const ssoToken = getSSOToken()
 
-            if (ssoToken) {
-                constructDeleteCall(
-                    import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/" + resourceId + "/comment/" + commentId,
-                    ssoToken,
-                ).then(
-                    (_response) => onSuccess()
-                ).catch(onFailure)
-            }
+        if (ssoToken) {
+            constructDeleteCall(
+                import.meta.env.VITE_BRL_BACKEND_URL + "/wiki/resource/" + resourceId + "/comment/" + commentId,
+                ssoToken,
+            ).then(
+                (_response) => onSuccess()
+            ).catch(onFailure)
         }
     }
 

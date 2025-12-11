@@ -1,3 +1,4 @@
+import { CrossStorageClient } from 'cross-storage'
 import { ref } from 'vue'
 
 // TEMP CLASS TO SIMULATE AUTHENTICATION
@@ -87,7 +88,7 @@ export function useAuth() {
     const user = approvedUsers.value.find(
       u => u.email === email && u.password === password
     )
-    
+
     if (user) {
       // Store user without password
       const { password: _, ...userWithoutPassword } = user
@@ -95,26 +96,45 @@ export function useAuth() {
       isAuthenticated.value = true
       // Store in localStorage for persistence
       localStorage.setItem('user', JSON.stringify(userWithoutPassword))
-      
+
       // Store redirect URL if present (for later use in dashboard)
       const urlParams = new URLSearchParams(window.location.search)
       const redirectUrl = urlParams.get('redirect')
-      
+
       if (redirectUrl) {
         // Store the redirect URL for the dashboard to use
         sessionStorage.setItem('pendingRedirect', redirectUrl)
       }
-      
+
       return true
     }
     return false
   }
+
+  const sendTokenTo = (url: string, token: string, next: () => void) => {
+    const storage = new CrossStorageClient(url, {})
+    storage.onConnect().then(function () {
+      console.log('connected')
+      return storage.set('sso-token', token)
+    }).then(() => next())
+
+  }
+
+  const removeToken = (url: string) => {
+    const storage = new CrossStorageClient(url, {})
+    storage.onConnect().then(function () {
+      console.log('connected')
+      return storage.del('sso-token')
+    })
+  }
+
 
   // Logout current user
   const logout = () => {
     currentUser.value = null
     isAuthenticated.value = false
     localStorage.removeItem('user')
+    removeToken(import.meta.env.VITE_BRL_URL)
   }
 
   // Check if user is authenticated from localStorage
@@ -159,13 +179,13 @@ export function useAuth() {
         role: request.role,
         password: request.password
       }
-      
+
       // Add to approved users
       approvedUsers.value.push(newUser)
-      
+
       // Remove from pending requests
       pendingRequests.value = pendingRequests.value.filter(r => r.id !== requestId)
-      
+
       // Persist changes
       localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests.value))
       localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers.value))
@@ -198,15 +218,15 @@ export function useAuth() {
 
     // Remove user from approved users list
     approvedUsers.value = approvedUsers.value.filter(u => u.id !== userId)
-    
+
     // Persist changes
     localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers.value))
-    
+
     // If user deleted their own account, log them out
     if (currentUser.value?.id === userId) {
       logout()
     }
-    
+
     return true
   }
 
@@ -216,7 +236,7 @@ export function useAuth() {
     if (storedRequests) {
       pendingRequests.value = JSON.parse(storedRequests)
     }
-    
+
     const storedUsers = localStorage.getItem('approvedUsers')
     if (storedUsers) {
       approvedUsers.value = JSON.parse(storedUsers)
@@ -239,6 +259,8 @@ export function useAuth() {
     denyRequest,
     isAdmin,
     isContributorOrManager,
-    deleteUser
+    deleteUser,
+    sendTokenTo,
+    removeToken
   }
 }
