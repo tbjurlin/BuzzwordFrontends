@@ -27,7 +27,7 @@
 
   --color-heading: var(--theme-dirt);
   --color-text: var(--theme-dirt);
-  --color-text-invert: var(--theme-dirt);
+  --color-text-invert: var(--theme-hardboiled);
   --color-text-soft: var(--theme-bepisboiled);
 
   --color-error: var(--theme-blood);

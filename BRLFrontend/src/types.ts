@@ -150,3 +150,13 @@ export class Flag {
         )
     }
 }
+export type AboutUs = {
+        title: string;
+        missionStatement: string;
+        team: {
+            name: string,
+            role: string,
+            "fun fact": string
+        }[],
+        copyright: string;
+    }
