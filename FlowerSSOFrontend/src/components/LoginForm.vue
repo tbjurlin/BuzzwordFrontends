@@ -9,7 +9,6 @@ const { login, sendTokenTo } = useAuth()
 
 const email = ref('')
 const password = ref('')
-const keepSignedIn = ref(false)
 const showPassword = ref(false)
 const errorMessage = ref('')
 
@@ -19,28 +18,31 @@ const route = useRoute();
 const handleSignIn = () => {
   errorMessage.value = ''
   
-  const success = login(email.value, password.value)
-  
-  if (success) {
-    try {
-      if (route.query.redirect && typeof route.query.redirect === 'string') {
-        const redirect = new URL(route.query.redirect)
-        sendTokenTo(redirect.origin, () => window.location.href = redirect.toString())
-      } else {
+  login(
+    email.value,
+    password.value,
+    () => {
+      try {
+        if (route.query.redirect && typeof route.query.redirect === 'string') {
+          const redirect = new URL(route.query.redirect)
+          sendTokenTo(redirect.origin, () => window.location.href = redirect.toString())
+        } else {
+          // Always navigate to dashboard after successful login
+          nextTick(() => {
+            router.push({ name: 'dashboard' })
+          })
+        }
+      } catch {
         // Always navigate to dashboard after successful login
         nextTick(() => {
           router.push({ name: 'dashboard' })
         })
       }
-    } catch {
-      // Always navigate to dashboard after successful login
-      nextTick(() => {
-        router.push({ name: 'dashboard' })
-      })
+    },
+    () => {
+      errorMessage.value = 'Invalid credentials. Please try again.'
     }
-  } else {
-    errorMessage.value = 'Invalid credentials. Please try again.'
-  }
+  )
 }
 
 onMounted(() => {
@@ -97,17 +99,6 @@ watch(showPassword, async () => {
             </button>
           </div>
         </div>
-
-        <div class="form-group checkbox-group">
-          <label class="checkbox-label">
-            <input
-              v-model="keepSignedIn"
-              type="checkbox"
-              class="form-checkbox"
-            />
-            <span>Keep me signed in</span>
-          </label>
-        </div>
         
         <button type="submit" class="sign-in-btn">
           Sign in
@@ -116,7 +107,6 @@ watch(showPassword, async () => {
 
       <div class="help-links">
         <a href="#" class="help-link">Forgot password?</a>
-        <router-link to="/create-profile" class="help-link">Create new account</router-link>
       </div>
     </div>
   </div>

@@ -1,5 +1,8 @@
+import { useBackend } from '@/composables/useBackend'
 import { CrossStorageClient } from 'cross-storage'
 import { ref } from 'vue'
+
+const { loginAPICall } = useBackend();
 
 // TEMP CLASS TO SIMULATE AUTHENTICATION
 
@@ -83,19 +86,18 @@ const isAuthenticated = ref(false)
 
 export function useAuth() {
   // Login with email and password
-  const login = (email: string, password: string): boolean => {
-    // Find user in approved users list
-    const user = approvedUsers.value.find(
-      u => u.email === email && u.password === password
+  const login = (email: string, password: string, onSuccess: () => void, onFailure: (reason: any) => void) => {
+    
+    loginAPICall(
+      email,
+      password,
+      (token) => {
+        localStorage.setItem('sso-token', token)
+        isAuthenticated.value = true
+        onSuccess()
+      },
+      onFailure
     )
-
-    if (user) {
-      // Store in localStorage for persistence
-      localStorage.setItem('sso-token', import.meta.env.VITE_TOKEN)
-      isAuthenticated.value = true
-      return true
-    }
-    return false
   }
 
   const sendTokenTo = (url: string, next: () => void) => {
