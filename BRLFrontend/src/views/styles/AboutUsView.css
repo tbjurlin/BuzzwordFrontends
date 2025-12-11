@@ -33,6 +33,7 @@ h2 {
 
 .mission-content p {
   flex: 1;
+  font-size: 1.8rem;
 }
 
 .mission-content .mission-logo {
@@ -49,7 +50,6 @@ h2 {
 .team-yellow-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .team-yellow-content .team-yellow-image {
@@ -58,6 +58,10 @@ h2 {
   height: auto;
   border-radius: 8px;
   margin-bottom: 1.5rem;
+}
+
+.team-yellow-content p {
+  font-size: 1.2rem;
 }
 
 /* Meet the Team Section - Photo left, Info right */
@@ -106,3 +110,43 @@ h2 {
 .team-member .fun-fact {
   margin-top: 0.5rem;
 }
+
+.team-member p {
+  font-size: 1.2rem;
+}
+
+.copyright-section {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1rem;
+  color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mission-content,
+  .team-member {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .mission-content .mission-logo,
+  .team-member .team-photo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+}
+h2 {
+  color: var(--color-heading);
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-family: 'Bree Serif', serif;
+}
+ 
+ img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1.5rem; 
+ }
