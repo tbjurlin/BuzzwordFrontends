@@ -12,22 +12,32 @@
 }
 
 .is-upvoted button {
-    background-color: var(--color-button);
-    color: var(--color-text);
-    border: 2px solid var(--color-button);
+    background-color: transparent;
+    color: var(--theme-bee);
 }
 
 .is-upvoted button:hover {
-    border-color: var(--color-border);
-    color: var(--color-text);
+    color: var(--theme-bee);
 }
 
 button {
-    background-color: var(--color-background-soft);
-    border: 2px solid var(--color-background-soft);
+    background-color: transparent;
+    border: none;
     border-radius: 6px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--theme-bepisboiled);
 }
 
-button:hover {
-    border-color: var(--color-border)
+.upvote-icon {
+    transition: color 0.3s;
+    color: var(--theme-bepisboiled);
 }
+
+.upvote-icon:hover {   
+    color: var(--theme-bee);
+}
+
