@@ -5,6 +5,21 @@ import type { AboutUs } from '@/types';
 
 const aboutUs = ref<AboutUs>();
 
+// Logo
+const logo = new URL('@/assets/logo.png', import.meta.url).href;
+
+// Team Yellow image
+const teamYellow = new URL('@/assets/Team/Yellow.jpg', import.meta.url).href;
+
+// Team member photos in the config file order
+const teamPhotos = [
+    new URL('@/assets/Team/Ben.jpg', import.meta.url).href,
+    new URL('@/assets/Team/Claire.jpg', import.meta.url).href,
+    new URL('@/assets/Team/Den.jpg', import.meta.url).href,
+    new URL('@/assets/Team/Jan.jpg', import.meta.url).href,
+    new URL('@/assets/Team/Ted.jpg', import.meta.url).href,
+];
+
 onMounted(() => {
     const { getAboutUs } = useAboutUs();
 
@@ -28,17 +43,29 @@ onMounted(() => {
         <div class="about-us-content" v-if="aboutUs">
             <section class="mission-section">
                 <h2>Our Mission</h2>
-                <p>{{ aboutUs.missionStatement }}</p>
+                <div class="mission-content">
+                    <img :src="logo" alt="BRL Logo" class="mission-logo" />
+                    <p>{{ aboutUs.missionStatement }}</p>
+                </div>
             </section>
 
             <section class="team-section">
                 <h2>Meet the Team</h2>
                 <div class="team-grid">
                     <div v-for="(member, index) in aboutUs.team" :key="index" class="team-member">
+                        <img :src="teamPhotos[index]" :alt="member.name" class="team-photo" />
                         <h3>{{ member.name }}</h3>
                         <p class="role">{{ member.role }}</p>
                         <p class="fun-fact"><strong>Fun Fact:</strong> {{ member["fun fact"] }}</p>
                     </div>
+                </div>
+            </section>
+
+            <section class="team-yellow-section">
+                <h2>Team Yellow</h2>
+                <div class="team-yellow-content">
+                    <img :src="teamYellow" alt="Team Yellow" class="team-yellow-image" />
+                    <p>...</p>
                 </div>
             </section>
 
