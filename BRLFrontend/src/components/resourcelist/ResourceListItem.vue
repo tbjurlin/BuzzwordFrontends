@@ -81,9 +81,10 @@ onMounted(() => {
                     <button 
                         class="resource-flag-button" 
                         :class="{ 'is-flagged': resource.reviewFlags.length > 0 }"
+                        :count="resource.reviewFlags.length"
                         @click="handleFlagClick"
                         title="Flag this resource"
-                    >
+                        >
                         <VueFeather type="flag"/>
                     </button>
                 </div>
