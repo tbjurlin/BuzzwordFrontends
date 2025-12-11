@@ -53,9 +53,10 @@ onMounted(() => {
             <section class="team-yellow-section">
                 <h2>Team Yellow</h2>
                 <div class="team-yellow-content">
-                    <!--two photos side by side-->
-                    <img :src="teamYellow" alt="Team Yellow after first 4 final week presentation" class="team-yellow-image" />
-                    <img :src="sillyYellow" alt="Silly photo of team yellow" class="team-yellow-image" />
+                    <div class="team-yellow-images">
+                        <img :src="teamYellow" alt="Team Yellow after first 4 final week presentation" class="team-yellow-image" />
+                        <img :src="sillyYellow" alt="Silly photo of team yellow" class="team-yellow-image" />
+                    </div>
                     <p>Team yellow was decided by our generous proctor Jonathon Earll, his revolutionary team selection process led to the following members to meet.</p>
                 </div>
             </section>
