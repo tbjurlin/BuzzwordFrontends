@@ -44,8 +44,8 @@ onMounted(() => {
             <section class="mission-section">
                 <h2>Our Mission</h2>
                 <div class="mission-content">
-                    <img :src="logo" alt="BRL Logo" class="mission-logo" />
                     <p>{{ aboutUs.missionStatement }}</p>
+                    <img :src="logo" alt="BRL Logo" class="mission-logo" />
                 </div>
             </section>
 
@@ -62,9 +62,11 @@ onMounted(() => {
                 <div class="team-grid">
                     <div v-for="(member, index) in aboutUs.team" :key="index" class="team-member">
                         <img :src="teamPhotos[index]" :alt="member.name" class="team-photo" />
-                        <h3>{{ member.name }}</h3>
-                        <p class="role">{{ member.role }}</p>
-                        <p class="fun-fact"><strong>Fun Fact:</strong> {{ member["fun fact"] }}</p>
+                        <div class="team-info">
+                            <h3>{{ member.name }}</h3>
+                            <p class="role">{{ member.role }}</p>
+                            <p class="fun-fact"><strong>Fun Fact:</strong> {{ member["fun fact"] }}</p>
+                        </div>
                     </div>
                 </div>
             </section>
