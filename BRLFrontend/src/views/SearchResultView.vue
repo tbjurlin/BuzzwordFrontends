@@ -73,6 +73,9 @@ watch(
 <style scoped>
 @import '../assets/animations.css';
 @import '../assets/buttons.css';
-@import './styles/HomeView.css';
+
+h2 {
+  font-family: "Bree Serif", serif;
+}
 </style>
 

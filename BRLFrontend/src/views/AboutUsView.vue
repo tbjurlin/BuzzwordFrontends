@@ -49,6 +49,14 @@ onMounted(() => {
                 </div>
             </section>
 
+            <section class="team-yellow-section">
+                <h2>Team Yellow</h2>
+                <div class="team-yellow-content">
+                    <img :src="teamYellow" alt="Team Yellow" class="team-yellow-image" />
+                    <p>...</p>
+                </div>
+            </section>
+
             <section class="team-section">
                 <h2>Meet the Team</h2>
                 <div class="team-grid">
@@ -58,14 +66,6 @@ onMounted(() => {
                         <p class="role">{{ member.role }}</p>
                         <p class="fun-fact"><strong>Fun Fact:</strong> {{ member["fun fact"] }}</p>
                     </div>
-                </div>
-            </section>
-
-            <section class="team-yellow-section">
-                <h2>Team Yellow</h2>
-                <div class="team-yellow-content">
-                    <img :src="teamYellow" alt="Team Yellow" class="team-yellow-image" />
-                    <p>...</p>
                 </div>
             </section>
 
