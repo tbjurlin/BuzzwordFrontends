@@ -22,7 +22,15 @@
 
 Create a .env file within the root of the BRLFrontend directory and include:
 
-`VITE_BRL_BACKEND_URL=https://[Backend URL]/BLR/api`
+`VITE_BRL_BACKEND_URL=https://[BRL Backend URL]/BLR/api`
+
+`VITE_FLOWER_SSO_URL=http://[SSO URL]`
+
+Create an .env file within the root of the FlowerSSOFrontend directory and include:
+
+`VITE_BRL_URL=http://[BRL Frontend URL]`
+
+`VITE_TOKEN=[JWT token]`
 
 ## Compiling the Frontend
 Ensure you are in the root directory for the BuzzwordFrontends project
