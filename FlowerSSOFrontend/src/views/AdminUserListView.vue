@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuth, type User } from '../stores/auth'
 import feather from 'feather-icons'
 import ConfirmModal from '../components/ConfirmModal.vue'
+import TopBar from '../components/TopBar.vue'
 
 const router = useRouter()
 const { approvedUsers, isAdmin, deleteUser } = useAuth()
@@ -74,6 +75,7 @@ watch(users, async () => {
 </script>
 
 <template>
+  <TopBar />
   <div class="user-list-container">
     <div class="user-list-header">
       <div class="header-content">
