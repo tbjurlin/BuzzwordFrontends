@@ -5,7 +5,6 @@ import { useAuth, type UserRole } from '../stores/auth'
 import TopBar from '../components/TopBar.vue'
 
 const router = useRouter()
-const { submitProfileRequest } = useAuth()
 
 // Form fields
 const email = ref('')
@@ -55,18 +54,6 @@ const handleSubmit = () => {
     errorMessage.value = 'Password must be at least 8 characters long'
     return
   }
-
-  // Submit profile request
-  submitProfileRequest({
-    email: email.value,
-    password: password.value,
-    firstName: firstName.value,
-    lastName: lastName.value,
-    title: title.value,
-    department: department.value,
-    country: country.value,
-    role: role.value
-  })
 
   successMessage.value = 'Profile request submitted successfully! An administrator will review your request.'
   

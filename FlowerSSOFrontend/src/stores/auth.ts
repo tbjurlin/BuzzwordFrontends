@@ -7,7 +7,7 @@ const { loginAPICall } = useBackend();
 // TEMP CLASS TO SIMULATE AUTHENTICATION
 
 // User role types
-export type UserRole = 'user' | 'contributor' | 'manager'
+export type UserRole = 'user' | 'developer' | 'manager'
 
 // User interface with role
 export interface User {
@@ -58,7 +58,7 @@ const TEMP_CONTRIBUTOR: User = {
   title: 'Content Contributor',
   department: 'Operations',
   country: 'United States',
-  role: 'contributor',
+  role: 'developer',
   password: 'contributor123'
 }
 
@@ -78,8 +78,6 @@ const TEMP_USER: User = {
 // Store for approved users (simulating database)
 const approvedUsers = ref<User[]>([DUMMY_USER, TEMP_CONTRIBUTOR, TEMP_USER])
 
-// Store for pending user requests
-const pendingRequests = ref<PendingUserRequest[]>([])
 
 const isAuthenticated = ref(false)
 
@@ -146,18 +144,6 @@ export function useAuth() {
     // }
   }
 
-  // Submit a profile creation request
-  const submitProfileRequest = (userData: Omit<PendingUserRequest, 'id' | 'requestDate'>) => {
-    const newRequest: PendingUserRequest = {
-      ...userData,
-      id: Date.now().toString(),
-      requestDate: new Date()
-    }
-    pendingRequests.value.push(newRequest)
-    // Persist to localStorage
-    localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests.value))
-  }
-
   // Delete a user (manager can delete any user, users can delete themselves)
   const deleteUser = (userId: number) => {
   
@@ -168,12 +154,10 @@ export function useAuth() {
 
   return {
     isAuthenticated,
-    pendingRequests,
     approvedUsers,
     login,
     logout,
     checkAuth,
-    submitProfileRequest,
     deleteUser,
     sendTokenTo,
     removeToken,

@@ -13,18 +13,14 @@ const emit = defineEmits<{
 }>()
 
 const router = useRouter()
-const { pendingRequests } = useAuth()
-
-// Get count of pending requests
-const pendingCount = computed(() => pendingRequests.value.length)
 
 const closeModal = () => {
   emit('close')
 }
 
 // Navigate to pending requests page and close modal
-const goToPendingRequests = () => {
-  router.push({ name: 'admin-pending-requests' })
+const goToCreateProfile = () => {
+  router.push({ name: 'create-profile' })
   closeModal()
 }
 // Navigate to user list page and close modal
@@ -64,18 +60,15 @@ watch(() => props.isOpen, async (newValue) => {
                 <h3 class="section-title">Admin Actions</h3>
                 
                 <div class="admin-actions">
-                  <button class="admin-action-card" @click="goToPendingRequests">
+                  <button class="admin-action-card" @click="goToCreateProfile">
                     <div class="action-icon">
                       <i data-feather="user-plus"></i>
                     </div>
                     <div class="action-info">
-                      <h3 class="action-title">Pending Account Requests</h3>
+                      <h3 class="action-title">New User</h3>
                       <p class="action-description">
-                        Review and approve new user registrations
+                        Create new user registrations
                       </p>
-                      <span v-if="pendingCount > 0" class="pending-badge">
-                        {{ pendingCount }} pending
-                      </span>
                     </div>
                   </button>
                   <button class="admin-action-card" @click="goToUserList">
