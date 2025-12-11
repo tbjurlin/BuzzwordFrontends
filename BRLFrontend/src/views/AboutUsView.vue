@@ -1,8 +1,5 @@
-<script lang="ts">
-import { defineComponent, onMounted } from 'vue'
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router';
-import VueFeather from 'vue-feather';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useAboutUs } from '@/composables/useAboutUs';
 import type { AboutUs } from '@/types';
 
@@ -28,10 +25,31 @@ onMounted(() => {
 <template>
     <!--Config file information from the BRL API-->
     <div class="about-us-view">
-        <h1>About Us</h1>
-        <div class="about-us-content">
-            
-         </div>
+        <h1>{{ aboutUs?.title || 'About Us' }}</h1>
+        <div class="about-us-content" v-if="aboutUs">
+            <section class="mission-section">
+                <h2>Our Mission</h2>
+                <p>{{ aboutUs.missionStatement }}</p>
+            </section>
+
+            <section class="team-section">
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <div v-for="(member, index) in aboutUs.team" :key="index" class="team-member">
+                        <h3>{{ member.name }}</h3>
+                        <p class="role">{{ member.role }}</p>
+                        <p class="fun-fact"><strong>Fun Fact:</strong> {{ member["fun fact"] }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="copyright-section">
+                <p>{{ aboutUs.copyright }}</p>
+            </section>
+        </div>
+        <div v-else class="loading">
+            <p>Loading...</p>
+        </div>
     </div>
 </template>
 
