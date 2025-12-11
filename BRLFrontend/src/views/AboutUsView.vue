@@ -21,7 +21,6 @@ onMounted(() => {
 </script>
 
 
-
 <template>
     <!--Config file information from the BRL API-->
     <div class="about-us-view">
@@ -41,10 +40,6 @@ onMounted(() => {
                         <p class="fun-fact"><strong>Fun Fact:</strong> {{ member["fun fact"] }}</p>
                     </div>
                 </div>
-            </section>
-
-            <section class="copyright-section">
-                <p>{{ aboutUs.copyright }}</p>
             </section>
         </div>
         <div v-else class="loading">
