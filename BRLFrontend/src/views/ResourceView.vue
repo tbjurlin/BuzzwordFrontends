@@ -13,6 +13,8 @@ import { useUpvote } from '@/composables/useUpvote';
 import { useComment } from '@/composables/useComment';
 import { useFlag } from '@/composables/useFlag';
 import dayjs from 'dayjs';
+import ConfirmModal from '@/components/ConfirmModal.vue';
+
 
 const resource = ref<Resource>();
 const route = useRoute();
@@ -23,6 +25,8 @@ const isFlagViewModalOpen = ref(false);
 const isCommentEditModalOpen = ref(false);
 const selectedComment = ref<Comment | null>(null);
 const isDeleting = ref(false);
+const isCommentFlagDeleteModalOpen = ref(false);
+const recordToDelete = ref<Comment | Flag | null>(null);
 
 const getResourceById = useResource().getResourceById;
 const listAllResources = useResource().listAllResources;
@@ -108,8 +112,14 @@ const handleEdit = () => {
     }
 }
 
+const isConfirmModalOpen = ref(false);
+
 const handleDelete = () => {
-    if (resource.value && confirm('Are you sure you want to delete this resource? This action cannot be undone.')) {
+    isConfirmModalOpen.value = true;
+};
+
+const handleConfirmDelete = () => {
+    if (resource.value) {
         isDeleting.value = true;
         deleteResource(
             resource.value.id,
@@ -124,7 +134,12 @@ const handleDelete = () => {
             }
         );
     }
-}
+    isConfirmModalOpen.value = false;
+};
+
+const handleCancelDelete = () => {
+    isConfirmModalOpen.value = false;
+};
 
 onMounted(() => {
     refresh();
@@ -142,35 +157,53 @@ const handleCommentEdit = (comment: Comment | Flag) => {
 };
 
 const handleCommentDelete = (record: Comment | Flag) => {
-    if (!resource.value) return;
+    recordToDelete.value = record;
+    isCommentFlagDeleteModalOpen.value = true;
+};
 
-    if (confirm('Are you sure you want to delete this? This action cannot be undone.')) {
-        if (record.constructor.name === 'Comment') {
-            deleteComment(
-                resource.value.id,
-                record.id,
-                () => {
-                    refresh();
-                },
-                (reason) => {
-                    console.error('Failed to delete comment:', reason);
-                    alert('Failed to delete comment. Please try again.');
-                }
-            );
-        } else {
-            deleteFlag(
-                resource.value.id,
-                record.id,
-                () => {
-                    refresh();
-                },
-                (reason) => {
-                    console.error('Failed to delete flag:', reason);
-                    alert('Failed to delete flag. Please try again.');
-                }
-            );
-        }
+const handleConfirmCommentFlagDelete = () => {
+    if (!resource.value || !recordToDelete.value) return;
+
+    const record = recordToDelete.value;
+    
+    if (record.constructor.name === 'Comment') {
+        deleteComment(
+            resource.value.id,
+            record.id,
+            () => {
+                refresh();
+                isCommentFlagDeleteModalOpen.value = false;
+                recordToDelete.value = null;
+            },
+            (reason) => {
+                console.error('Failed to delete comment:', reason);
+                alert('Failed to delete comment. Please try again.');
+                isCommentFlagDeleteModalOpen.value = false;
+                recordToDelete.value = null;
+            }
+        );
+    } else {
+        deleteFlag(
+            resource.value.id,
+            record.id,
+            () => {
+                refresh();
+                isCommentFlagDeleteModalOpen.value = false;
+                recordToDelete.value = null;
+            },
+            (reason) => {
+                console.error('Failed to delete flag:', reason);
+                alert('Failed to delete flag. Please try again.');
+                isCommentFlagDeleteModalOpen.value = false;
+                recordToDelete.value = null;
+            }
+        );
     }
+};
+
+const handleCancelCommentFlagDelete = () => {
+    isCommentFlagDeleteModalOpen.value = false;
+    recordToDelete.value = null;
 };
 
 const handleCommentEditSubmitted = () => {
@@ -266,6 +299,28 @@ const handleCommentEditSubmitted = () => {
         :is-open="isCommentEditModalOpen"
         @close="isCommentEditModalOpen = false"
         @submitted="handleCommentEditSubmitted"
+    />
+
+    <ConfirmModal
+        :is-open="isConfirmModalOpen"
+        title="Delete Resource"
+        message="Are you sure you want to delete this resource? This action cannot be undone."
+        confirm-text="Delete"
+        cancel-text="Cancel"
+        :is-dangerous="true"
+        @confirm="handleConfirmDelete"
+        @cancel="handleCancelDelete"
+    />
+
+    <ConfirmModal
+        :is-open="isCommentFlagDeleteModalOpen"
+        :title="recordToDelete?.constructor.name === 'Comment' ? 'Delete Comment' : 'Delete Flag'"
+        message="Are you sure you want to delete this? This action cannot be undone."
+        confirm-text="Delete"
+        cancel-text="Cancel"
+        :is-dangerous="true"
+        @confirm="handleConfirmCommentFlagDelete"
+        @cancel="handleCancelCommentFlagDelete"
     />
   </div>
   <p v-else>Resource not available</p>

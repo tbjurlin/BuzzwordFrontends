@@ -1,14 +1,15 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router';
-import VueFeather from 'vue-feather';
-
+<script setup lang="ts">
+// Empty About Us page - content to be added later
 </script>
 
 <template>
-    /*Config file information from the BRL API*/
-    <div class="about-us-view">
-        <h1>About Us</h1>
-        <p>...</p>
+  <div class="about-us-view">
+    <!-- Content will be added here -->
+  </div>
 </template>
+
+<style scoped>
+@import '../assets/animations.css';
+@import '../assets/buttons.css';
+@import './styles/AboutUsView.css';
+</style>

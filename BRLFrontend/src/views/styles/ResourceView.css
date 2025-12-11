@@ -104,6 +104,13 @@ h2 {
     cursor: not-allowed;
 }
 
+.resource-comment-action,
+.resource-flag-action {
+    font-size: 1.0rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
 .flag-warning {
     background-color: var(--theme-blood);
     color: var(--theme-hardboiled);
