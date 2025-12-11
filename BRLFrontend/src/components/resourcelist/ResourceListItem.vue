@@ -80,15 +80,18 @@ onMounted(() => {
                 <div class="resource-action-item resource-flag-action">
                     <button 
                         class="resource-flag-button" 
-                        :class="{ 'is-flagged': resource.reviewFlags.length > 0 }"
+                        :class="{ 'is-flagged': resource.reviewFlags.length > 0}"
                         @click="handleFlagClick"
                         title="Flag this resource"
-                    >
+                        >
                         <VueFeather type="flag"/>
                     </button>
+                    <div v-if="resource.reviewFlags.length > 0" class="flag-count-badge">
+                        {{ resource.reviewFlags.length }}
+                    </div>
                 </div>
+                <Upvote :is-upvoted="resource.upvotedByCurrentUser" :count="resource.upvoteCount" @upvoted="handleUpvote"/>
             </div>
-            <Upvote :is-upvoted="resource.upvotedByCurrentUser" :count="resource.upvoteCount" @upvoted="handleUpvote"/>
         </div>
         <p class="resource-uploader">Uploaded by: {{ props.resource.firstName }} {{ props.resource.lastName }} · {{ formatDate(props.resource.creationDate) }}</p>
         <p class="resource-description">{{ props.resource.description }}</p>

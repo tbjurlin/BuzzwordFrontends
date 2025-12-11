@@ -1,3 +1,4 @@
+
 h2 {
     color: var(--color-heading);
     margin-bottom: 2rem;
@@ -62,6 +63,14 @@ h2 {
     justify-content: center;
     align-items: center;
     gap: 0.4rem;
+    flex-wrap: nowrap;
+}
+
+.resource-action-item p {
+    margin: 0;
+    margin-left: 0.4rem;
+    margin-right: 0.2rem;
+    font-size: 1.0rem;
 }
 
 .resource-action-item button {
@@ -102,6 +111,15 @@ h2 {
 .resource-action-item button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.resource-comment-action,
+.resource-flag-action {
+    font-size: 1.0rem;
+    color: var(--color-text);
+    font-weight: 500;
+    flex-direction: row;
+    align-items: center;
 }
 
 .flag-warning {

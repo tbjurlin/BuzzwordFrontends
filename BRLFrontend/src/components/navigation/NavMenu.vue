@@ -53,6 +53,14 @@ const closeMenu = () => {
       >
         Your Resources
       </RouterLink>
+      <RouterLink
+        to="/about-us" 
+        class="nav-link" 
+        active-class="active"
+        @click="closeMenu"
+      >
+        About Us
+      </RouterLink>
     </div>
 
     <!-- Overlay for mobile menu -->

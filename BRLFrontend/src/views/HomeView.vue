@@ -20,7 +20,6 @@ onMounted(() => {
 
 <template>
   <div class="home-view">
-    <!-- Empty home page - content can be added here -->
     <h1>Available Resources</h1>
     <ResourceList :resources="resources"/>
   </div>
@@ -29,6 +28,9 @@ onMounted(() => {
 <style scoped>
 @import '../assets/animations.css';
 @import '../assets/buttons.css';
-@import './styles/HomeView.css';
+
+h1 {
+  font-family: "Bree Serif", serif;
+}
 </style>
 

@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DashboardView from '../views/DashboardView.vue'
-import CreateProfileView from '../views/CreateProfileView.vue'
 import AdminPendingRequestsView from '../views/AdminPendingRequestsView.vue'
 import AdminUserListView from '../views/AdminUserListView.vue'
 import { useAuth } from '../stores/auth'
@@ -13,11 +12,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-    },
-    {
-      path: '/create-profile',
-      name: 'create-profile',
-      component: CreateProfileView,
     },
     {
       path: '/dashboard',

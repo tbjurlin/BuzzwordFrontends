@@ -116,7 +116,6 @@ watch(showPassword, async () => {
 
       <div class="help-links">
         <a href="#" class="help-link">Forgot password?</a>
-        <router-link to="/create-profile" class="help-link">Create new account</router-link>
       </div>
     </div>
   </div>
