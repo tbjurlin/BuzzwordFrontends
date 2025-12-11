@@ -231,13 +231,13 @@ const handleCommentEditSubmitted = () => {
                 <button class="resource-comment-button" @click="scrollToComments">
                     <VueFeather type="message-circle"/>
                 </button>
-                {{ resource.comments.length }}
+                <p>{{ resource.comments.length }}</p>
             </div>
             <div class="resource-action-item resource-flag-action">
                 <button class="resource-flag-button" @click="isFlagViewModalOpen = true">
                     <VueFeather type="flag"/>
                 </button>
-                {{ resource.reviewFlags.length }}
+                <p>{{ resource.reviewFlags.length }}</p>
             </div>
             <div v-if="resource.currentUserCanDelete" class="resource-action-item resource-edit-action">
                 <button class="resource-edit-button" @click="handleEdit" :disabled="isDeleting">

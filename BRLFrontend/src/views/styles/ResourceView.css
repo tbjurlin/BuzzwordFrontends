@@ -62,6 +62,14 @@ h2 {
     justify-content: center;
     align-items: center;
     gap: 0.4rem;
+    flex-wrap: nowrap;
+}
+
+.resource-action-item p {
+    margin: 0;
+    margin-left: 0.4rem;
+    margin-right: 0.2rem;
+    font-size: 1.0rem;
 }
 
 .resource-action-item button {
