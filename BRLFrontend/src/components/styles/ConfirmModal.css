@@ -40,7 +40,7 @@
 
 .modal-content {
   padding: 2rem;
-  background-color: var(--color-loginBackground);
+  background-color: var(--color-background);
 }
 
 .modal-message {
