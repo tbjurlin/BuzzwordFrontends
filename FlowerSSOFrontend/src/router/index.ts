@@ -42,7 +42,7 @@ const router = createRouter({
 
 // Navigation guard to protect routes
 router.beforeEach((to, from, next) => {
-  const { checkAuth, isAdmin } = useAuth()
+  const { checkAuth } = useAuth()
 
   // Check if user is authenticated from localStorage
   checkAuth((isAuthed) => {

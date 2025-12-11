@@ -81,7 +81,6 @@ const approvedUsers = ref<User[]>([DUMMY_USER, TEMP_CONTRIBUTOR, TEMP_USER])
 // Store for pending user requests
 const pendingRequests = ref<PendingUserRequest[]>([])
 
-const currentUser = ref<User | null>(null)
 const isAuthenticated = ref(false)
 
 export function useAuth() {
@@ -125,11 +124,6 @@ export function useAuth() {
     removeToken(import.meta.env.VITE_BRL_URL)
   }
 
-  // Get current user profile
-  const getUser = () => {
-    currentUser.value = DUMMY_USER
-  }
-
   // Check if user is authenticated from localStorage
   const checkAuth = (onComplete: (isAuthed: boolean) => void) => {
     const token = localStorage.getItem('sso-token')
@@ -164,49 +158,22 @@ export function useAuth() {
     localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests.value))
   }
 
-  // Check if current user is admin (manager role acts as admin)
-  const isAdmin = () => {
-    return currentUser.value?.role === 'manager'
-  }
-
-  // Check if current user is contributor or manager
-  const isContributorOrManager = () => {
-    return currentUser.value?.role === 'contributor' || currentUser.value?.role === 'manager'
-  }
-
   // Delete a user (manager can delete any user, users can delete themselves)
-  const deleteUser = (userId: string) => {
-    const userToDelete = approvedUsers.value.find(u => u.id === userId)
-    if (!userToDelete) {
-      return false
-    }
+  const deleteUser = (userId: number) => {
+  
 
-    // Remove user from approved users list
-    approvedUsers.value = approvedUsers.value.filter(u => u.id !== userId)
-
-    // Persist changes
-    localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers.value))
-
-    // If user deleted their own account, log them out
-    if (currentUser.value?.id === userId) {
-      logout()
-    }
 
     return true
   }
 
   return {
-    currentUser,
     isAuthenticated,
     pendingRequests,
     approvedUsers,
     login,
     logout,
-    getUser,
     checkAuth,
     submitProfileRequest,
-    isAdmin,
-    isContributorOrManager,
     deleteUser,
     sendTokenTo,
     removeToken,

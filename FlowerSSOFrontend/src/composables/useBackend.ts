@@ -32,7 +32,8 @@ export function useBackend() {
     }
 
     return {
-        loginAPICall
+        loginAPICall,
+        profileCall
     }
 }
 
