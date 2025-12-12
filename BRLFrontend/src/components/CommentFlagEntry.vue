@@ -28,9 +28,12 @@ const props = defineProps({
 })
 
 function handleSubmit() {
+    console.log("commenting")
+    console.log(textInput.value)
     if (!textInput.value.trim()) {
         return;
     }
+    console.log("commenting")
     
     if (props.type == "comment") {
         createComment(
@@ -74,9 +77,9 @@ function handleInput(event: Event) {
         <div class="textarea-wrapper">
             <textarea 
                 :id="type" 
-                :value="textInput" 
-                @input="handleInput"
+                v-model="textInput"
                 :name="'user_' + type" 
+                maxlength="200"
                 :placeholder="'Enter your ' + type + 's here...'"
                 class="char-limited-textarea"
             ></textarea>

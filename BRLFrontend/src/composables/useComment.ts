@@ -6,6 +6,7 @@ export function useComment() {
 
 
     const createComment = (resourceId: number, contents: string, onSuccess: (newId: number) => void, onFailure: (reason: any) => void) => {
+        console.log("commenting")
         const ssoToken = getSSOToken();
 
         if (ssoToken) {

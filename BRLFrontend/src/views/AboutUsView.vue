@@ -57,7 +57,7 @@ onMounted(() => {
                         <img :src="teamYellow" alt="Team Yellow after first 4 final week presentation" class="team-yellow-image" />
                         <img :src="sillyYellow" alt="Silly photo of team yellow" class="team-yellow-image" style="height: 300px;"/>
                     </div>
-                    <p>Team yellow was decided by our generous proctor Jonathon Earll, his revolutionary team selection process led to the following members to meet.</p>
+                    <p>Team yellow was decided by our generous proctor Jonathon Earl, his revolutionary team selection process led to the following members to meet.</p>
                 </div>
             </section>
 
