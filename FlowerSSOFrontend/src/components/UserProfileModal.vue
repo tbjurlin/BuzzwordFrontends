@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useAuth } from '../stores/auth'
 import { useRouter } from 'vue-router'
 import PasswordChange from './PasswordChange.vue'
 import ConfirmModal from './ConfirmModal.vue'
+import { useBackend } from '@/composables/useBackend'
+import type { Profile } from '@/types'
+
+const { profileCall } = useBackend()
+const user = ref<Profile>();
 
 const props = defineProps<{
   isOpen: boolean
@@ -14,7 +19,8 @@ const emit = defineEmits<{
 }>()
 
 const router = useRouter()
-const { currentUser, deleteUser } = useAuth()
+const { logout } = useAuth()
+const { deleteUser } = useBackend()
 const showPasswordChange = ref(false)
 const showDeleteConfirm = ref(false)
 
@@ -31,18 +37,32 @@ const confirmDeleteAccount = () => {
 }
 
 const handleDeleteAccount = () => {
-  if (currentUser.value) {
-    deleteUser(currentUser.value.id)
-    showDeleteConfirm.value = false
-    closeModal()
-    // User will be logged out automatically by deleteUser function
-    router.push({ name: 'home' })
+  if (user.value) {
+    deleteUser(
+      user.value.id,
+      () => {
+        logout()
+        showDeleteConfirm.value = false
+        closeModal()
+        // User will be logged out automatically by deleteUser function
+        router.push({ name: 'home' })
+      },
+      () => {}
+    )
   }
 }
 
 const cancelDelete = () => {
   showDeleteConfirm.value = false
 }
+
+onMounted(() => {
+
+  profileCall(
+    (profile) => user.value = profile,
+    () => {}
+  )
+})
 </script>
 
 <template>
@@ -61,34 +81,34 @@ const cancelDelete = () => {
           </div>
           
           <div class="modal-content">
-            <div v-if="currentUser" class="profile-info">
+            <div v-if="user" class="profile-info">
               <!-- User Information Section -->
               <div class="info-section">
                 <h3 class="section-title">Profile Details</h3>
                 
                 <div class="info-group">
                   <label class="info-label">Company Email</label>
-                  <p class="info-value">{{ currentUser.email }}</p>
+                  <p class="info-value">{{ user.email }}</p>
                 </div>
                 
                 <div class="info-group">
                   <label class="info-label">Employee Name</label>
-                  <p class="info-value">{{ currentUser.firstName }} {{ currentUser.lastName }}</p>
+                  <p class="info-value">{{ user.fName }} {{ user.lName }}</p>
                 </div>
 
                 <div class="info-group">
                   <label class="info-label">Title</label>
-                  <p class="info-value">{{ currentUser.title }}</p>
+                  <p class="info-value">{{ user.title }}</p>
                 </div>
                 
                 <div class="info-group">
                   <label class="info-label">Department</label>
-                  <p class="info-value">{{ currentUser.department }}</p>
+                  <p class="info-value">{{ user.dept }}</p>
                 </div>
 
                 <div class="info-group">
                   <label class="info-label">Location</label>
-                  <p class="info-value">{{ currentUser.country }}</p>
+                  <p class="info-value">{{ user.loc }}</p>
                 </div>
               </div>
 
@@ -108,7 +128,7 @@ const cancelDelete = () => {
                   </button>
                 <Transition name="slide">
                   <div v-if="showPasswordChange" class="password-change-wrapper">
-                    <PasswordChange />
+                    <PasswordChange :user-id="user.id"/>
                   </div>
                 </Transition>
               </div>

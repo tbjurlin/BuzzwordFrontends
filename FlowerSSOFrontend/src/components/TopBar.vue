@@ -5,15 +5,18 @@ import { useAuth } from '../stores/auth'
 import UserProfileModal from './UserProfileModal.vue'
 import AdminPanelModal from './AdminPanelModal.vue'
 import feather from 'feather-icons'
+import type { Profile } from '@/types'
+import { useBackend } from '@/composables/useBackend'
 
 const router = useRouter()
-const { currentUser, logout, isAdmin } = useAuth()
+const { logout } = useAuth()
+const { profileCall } = useBackend()
+
 
 const isProfileModalOpen = ref(false)
 const isAdminModalOpen = ref(false)
 
-// Check if current user is admin
-const userIsAdmin = computed(() => isAdmin())
+const user = ref<Profile>()
 
 const openProfileModal = () => {
   isProfileModalOpen.value = true
@@ -39,19 +42,27 @@ const handleLogout = () => {
 onMounted(() => {
   // Replace feather icons after component is mounted
   feather.replace()
+
+  profileCall(
+    (profile) => {
+      user.value = profile
+      console.log(profile)
+    },
+    () => {}
+  )
 })
 </script>
 
 <template>
   <div class="topbar">
-    <div class="topbar-content">
+    <div v-if="user" class="topbar-content">
       <div class="topbar-left">
-        <h3 class="welcome-text">Welcome, {{ currentUser?.firstName || 'User' }}</h3>
+        <h3 class="welcome-text">Welcome, {{ user.fName }}</h3>
       </div>
       
       <div class="topbar-right">
         <!-- Admin Panel Button - Only visible to admins (admin role) -->
-        <button v-if="userIsAdmin" @click="openAdminModal" class="admin-panel-btn" aria-label="Open admin panel">
+        <button v-if="user.isAdmin" @click="openAdminModal" class="admin-panel-btn" aria-label="Open admin panel">
           <div class="admin-icon">
             <i data-feather="shield"></i>
           </div>
@@ -62,7 +73,7 @@ onMounted(() => {
           <div class="user-avatar">
             <i data-feather="user"></i>
           </div>
-          <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
+          <span class="user-name">{{ user.fName }} {{ user.lName }}</span>
         </button>
         
         <button @click="handleLogout" class="signout-btn">

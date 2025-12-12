@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DashboardView from '../views/DashboardView.vue'
-import AdminPendingRequestsView from '../views/AdminPendingRequestsView.vue'
 import AdminUserListView from '../views/AdminUserListView.vue'
 import { useAuth } from '../stores/auth'
 
@@ -20,12 +19,6 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
-      path: '/admin/pending-requests',
-      name: 'admin-pending-requests',
-      component: AdminPendingRequestsView,
-      meta: { requiresAuth: true, requiresAdmin: true }
-    },
-    {
       path: '/admin/users',
       name: 'admin-users',
       component: AdminUserListView,
@@ -36,7 +29,7 @@ const router = createRouter({
 
 // Navigation guard to protect routes
 router.beforeEach((to, from, next) => {
-  const { checkAuth, isAdmin } = useAuth()
+  const { checkAuth } = useAuth()
 
   // Check if user is authenticated from localStorage
   checkAuth((isAuthed) => {

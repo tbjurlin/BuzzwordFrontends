@@ -3,16 +3,6 @@
     <h2 class="box-title">Change Password</h2>
     
     <form @submit.prevent="handleChangePassword" class="password-form">
-      <div class="form-group">
-        <label for="currentPassword" class="form-label">Current Password</label>
-        <input
-          id="currentPassword"
-          v-model="currentPassword"
-          type="password"
-          class="form-input"
-          required
-        />
-      </div>
       
       <div class="form-group">
         <label for="newPassword" class="form-label">New Password</label>
@@ -52,13 +42,17 @@
 </template>
 
 <script setup lang="ts">
+import { useBackend } from '@/composables/useBackend'
 import { ref } from 'vue'
 
-const currentPassword = ref('')
+const props = defineProps<{userId: number}>()
+
 const newPassword = ref('')
 const confirmPassword = ref('')
 const errorMessage = ref('')
 const successMessage = ref('')
+
+const { changePassword } = useBackend()
 
 const handleChangePassword = () => {
   errorMessage.value = ''
@@ -69,18 +63,23 @@ const handleChangePassword = () => {
     return
   }
   
-  if (newPassword.value.length < 8) {
+  if (newPassword.value.length < 12) {
     errorMessage.value = 'Password must be at least 8 characters long.'
     return
   }
   
   // Simulate API call
-  setTimeout(() => {
-    successMessage.value = 'Password changed successfully!'
-    currentPassword.value = ''
-    newPassword.value = ''
-    confirmPassword.value = ''
-  }, 1000)
+  changePassword(
+    newPassword.value,
+    () => {
+      successMessage.value = "Password Successfully Changed!"
+      errorMessage.value = ''
+    },
+    () => {
+      errorMessage.value = "Password Change Failed"
+      successMessage.value = ''
+    }
+  )
 }
 </script>
 
