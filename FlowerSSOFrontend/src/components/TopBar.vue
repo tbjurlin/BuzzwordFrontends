@@ -44,7 +44,10 @@ onMounted(() => {
   feather.replace()
 
   profileCall(
-    (profile) => user.value = profile,
+    (profile) => {
+      user.value = profile
+      console.log(profile)
+    },
     () => {}
   )
 })
@@ -54,7 +57,7 @@ onMounted(() => {
   <div class="topbar">
     <div v-if="user" class="topbar-content">
       <div class="topbar-left">
-        <h3 class="welcome-text">Welcome, {{ user.firstName }}</h3>
+        <h3 class="welcome-text">Welcome, {{ user.fName }}</h3>
       </div>
       
       <div class="topbar-right">
@@ -70,7 +73,7 @@ onMounted(() => {
           <div class="user-avatar">
             <i data-feather="user"></i>
           </div>
-          <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+          <span class="user-name">{{ user.fName }} {{ user.lName }}</span>
         </button>
         
         <button @click="handleLogout" class="signout-btn">

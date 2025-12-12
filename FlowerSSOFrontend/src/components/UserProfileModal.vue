@@ -19,7 +19,8 @@ const emit = defineEmits<{
 }>()
 
 const router = useRouter()
-const { deleteUser, logout } = useAuth()
+const { logout } = useAuth()
+const { deleteUser } = useBackend()
 const showPasswordChange = ref(false)
 const showDeleteConfirm = ref(false)
 
@@ -37,12 +38,17 @@ const confirmDeleteAccount = () => {
 
 const handleDeleteAccount = () => {
   if (user.value) {
-    deleteUser(user.value.id)
-    logout()
-    showDeleteConfirm.value = false
-    closeModal()
-    // User will be logged out automatically by deleteUser function
-    router.push({ name: 'home' })
+    deleteUser(
+      user.value.id,
+      () => {
+        logout()
+        showDeleteConfirm.value = false
+        closeModal()
+        // User will be logged out automatically by deleteUser function
+        router.push({ name: 'home' })
+      },
+      () => {}
+    )
   }
 }
 
@@ -87,7 +93,7 @@ onMounted(() => {
                 
                 <div class="info-group">
                   <label class="info-label">Employee Name</label>
-                  <p class="info-value">{{ user.firstName }} {{ user.lastName }}</p>
+                  <p class="info-value">{{ user.fName }} {{ user.lName }}</p>
                 </div>
 
                 <div class="info-group">
@@ -97,12 +103,12 @@ onMounted(() => {
                 
                 <div class="info-group">
                   <label class="info-label">Department</label>
-                  <p class="info-value">{{ user.department }}</p>
+                  <p class="info-value">{{ user.dept }}</p>
                 </div>
 
                 <div class="info-group">
                   <label class="info-label">Location</label>
-                  <p class="info-value">{{ user.location }}</p>
+                  <p class="info-value">{{ user.loc }}</p>
                 </div>
               </div>
 
@@ -122,7 +128,7 @@ onMounted(() => {
                   </button>
                 <Transition name="slide">
                   <div v-if="showPasswordChange" class="password-change-wrapper">
-                    <PasswordChange />
+                    <PasswordChange :user-id="user.id"/>
                   </div>
                 </Transition>
               </div>

@@ -1,11 +1,10 @@
-
 export type Profile = {
   id: number,
-  firstName: string,
-  lastName: string,
-  location: string,
-  department: string,
+  fName: string,
+  lName: string,
+  loc: string,
+  dept: string,
   title: string,
   email: string,
-  isAdmin: string
+  isAdmin: boolean
 }

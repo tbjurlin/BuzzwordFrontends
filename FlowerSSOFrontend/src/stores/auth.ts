@@ -4,81 +4,6 @@ import { ref } from 'vue'
 
 const { loginAPICall } = useBackend();
 
-// TEMP CLASS TO SIMULATE AUTHENTICATION
-
-// User role types
-export type UserRole = 'user' | 'developer' | 'manager'
-
-// User interface with role
-export interface User {
-  id: string
-  email: string
-  firstName: string
-  lastName: string
-  title: string
-  department: string
-  country: string
-  role: UserRole
-  password: string
-}
-
-// Pending user request interface
-export interface PendingUserRequest {
-  id: string
-  email: string
-  firstName: string
-  lastName: string
-  title: string
-  department: string
-  country: string
-  role: UserRole
-  password: string
-  requestDate: Date
-}
-
-// Dummy manager user for testing (manager acts as admin)
-const DUMMY_USER: User = {
-  id: '1',
-  email: 'manager@example.com',
-  firstName: 'Manager',
-  lastName: 'User',
-  title: 'System Manager',
-  department: 'IT',
-  country: 'United States',
-  role: 'manager',
-  password: 'password'
-}
-
-// TEMPORARY: Contributor user for testing (TO BE REMOVED)
-const TEMP_CONTRIBUTOR: User = {
-  id: '2',
-  email: 'temp.contributor@example.com',
-  firstName: 'Temp',
-  lastName: 'Contributor',
-  title: 'Content Contributor',
-  department: 'Operations',
-  country: 'United States',
-  role: 'developer',
-  password: 'contributor123'
-}
-
-// TEMPORARY: Regular user for testing (TO BE REMOVED)
-const TEMP_USER: User = {
-  id: '3',
-  email: 'temp.user@example.com',
-  firstName: 'Temp',
-  lastName: 'User',
-  title: 'Temporary Employee',
-  department: 'Operations',
-  country: 'United States',
-  role: 'user',
-  password: 'user123'
-}
-
-// Store for approved users (simulating database)
-const approvedUsers = ref<User[]>([DUMMY_USER, TEMP_CONTRIBUTOR, TEMP_USER])
-
-
 const isAuthenticated = ref(false)
 
 export function useAuth() {
@@ -89,6 +14,7 @@ export function useAuth() {
       email,
       password,
       (token) => {
+        console.log(token)
         localStorage.setItem('sso-token', token)
         isAuthenticated.value = true
         onSuccess()
@@ -144,21 +70,11 @@ export function useAuth() {
     // }
   }
 
-  // Delete a user (manager can delete any user, users can delete themselves)
-  const deleteUser = (userId: number) => {
-  
-
-
-    return true
-  }
-
   return {
     isAuthenticated,
-    approvedUsers,
     login,
     logout,
     checkAuth,
-    deleteUser,
     sendTokenTo,
     removeToken,
   }

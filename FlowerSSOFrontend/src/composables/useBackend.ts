@@ -15,8 +15,14 @@ export function useBackend() {
                 "password": password
             }
         ).then((response) => {
-            onSuccess(response.headers.Bearer)
+                console.log(response)
+                console.log(response.headers)
+            if (response.headers.bearer && typeof response.headers.bearer === "string") {
+                onSuccess(response.headers.bearer)
+            } else {
+                onFailure("invalid token")
             }
+        }
         ).catch(onFailure);
     }
 
@@ -31,9 +37,90 @@ export function useBackend() {
         }
     }
 
+    const listUsers = (onSuccess: (users: Profile[]) => void, onFailure: (reason: any) => void) => {
+        const token = getSSOToken()
+
+        if (token) {
+            constructGetCall(
+                import.meta.env.VITE_FLOWER_SSO_BACKEND_URL + "/admin/users",
+                token
+            ).then((response) => onSuccess(response.data)).catch(onFailure)
+        }
+    }
+
+    const deleteUser = (userId: number, onSuccess: () => void, onFailure: (reason: any) => void) => {
+        const token = getSSOToken()
+
+        if (token) {
+            constructDeleteCall(
+                import.meta.env.VITE_FLOWER_SSO_BACKEND_URL + "/admin/delete/" + userId,
+                token
+            ).then((_response) => onSuccess()).catch(onFailure)
+        }
+    }
+
+    const createUser = (profile: Profile, password: string, onSuccess: () => void, onFailure: (reason: any) => void) => {
+        const token = getSSOToken()
+
+        if (token) {
+            constructPostCall(
+                import.meta.env.VITE_FLOWER_SSO_BACKEND_URL + "/admin/add",
+                { password, ...profile },
+                token
+            ).then((response) => onSuccess()).catch(onFailure)
+        }
+    }
+
+    const updateUser = (profile: Profile, onSuccess: () => void, onFailure: (reason: any) => void) => {
+        const token = getSSOToken()
+
+        if (token) {
+            constructPutCall(
+                import.meta.env.VITE_FLOWER_SSO_BACKEND_URL + "/admin/update",
+                { password: "", ...profile },
+                token
+            ).then((response) => onSuccess()).catch(onFailure)
+        }
+    }
+
+    const changePassword = (password: string, onSuccess: () => void, onFailure: (reason: any) => void) => {
+        const token = getSSOToken()
+
+        if (token) {
+            axios.put(
+                import.meta.env.VITE_FLOWER_SSO_BACKEND_URL + "/password",
+                password,
+                {
+                    headers: {
+                        'Bearer': token,
+                        'Content-Type': 'text/plain'
+                    }
+                }
+            ).then((response) => onSuccess()).catch(onFailure)
+        }
+    }
+
+    const forgotPassword = (email: string, onSuccess: () => void, onFailure: (reason: any) => void) => {
+        const token = getSSOToken()
+
+        if (token) {
+            constructPostCall(
+                import.meta.env.VITE_FLOWER_SSO_BACKEND_URL + "/admin/users",
+                { email },
+                token
+            ).then((response) => onSuccess()).catch(onFailure)
+        }
+    }
+
     return {
         loginAPICall,
-        profileCall
+        profileCall,
+        listUsers,
+        deleteUser,
+        createUser,
+        updateUser,
+        forgotPassword,
+        changePassword
     }
 }
 
