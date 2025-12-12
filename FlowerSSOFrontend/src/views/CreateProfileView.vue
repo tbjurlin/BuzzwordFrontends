@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuth, type UserRole } from '../stores/auth'
 import TopBar from '../components/TopBar.vue'
+import { useBackend } from '@/composables/useBackend'
 
 const router = useRouter()
-const { submitProfileRequest } = useAuth()
 
 // Form fields
 const email = ref('')
@@ -15,14 +14,16 @@ const firstName = ref('')
 const lastName = ref('')
 const title = ref('')
 const department = ref('')
-const country = ref('')
-const role = ref<UserRole>('user')
+const location = ref('')
+const isAdmin = ref(false)
 
 // UI state
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
+
+const { createUser } = useBackend() 
 
 // Handle form submission
 const handleSubmit = () => {
@@ -32,7 +33,7 @@ const handleSubmit = () => {
   // Validation
   if (!email.value || !password.value || !confirmPassword.value || 
       !firstName.value || !lastName.value || !title.value || 
-      !department.value || !country.value) {
+      !department.value || !location.value) {
     errorMessage.value = 'All fields are required'
     return
   }
@@ -51,40 +52,42 @@ const handleSubmit = () => {
   }
 
   // Password strength validation
-  if (password.value.length < 8) {
+  if (password.value.length < 12) {
     errorMessage.value = 'Password must be at least 8 characters long'
     return
   }
 
-  // Submit profile request
-  submitProfileRequest({
-    email: email.value,
-    password: password.value,
-    firstName: firstName.value,
-    lastName: lastName.value,
-    title: title.value,
-    department: department.value,
-    country: country.value,
-    role: role.value
-  })
+  createUser(
+    {
+      id: -0,
+      fName: firstName.value,
+      lName: lastName.value,
+      loc: location.value,
+      dept: department.value,
+      title: title.value,
+      email: email.value,
+      isAdmin: isAdmin.value
+    },
+    password.value,
+    () => {
 
-  successMessage.value = 'Profile request submitted successfully! An administrator will review your request.'
-  
-  // Reset form
-  email.value = ''
-  password.value = ''
-  confirmPassword.value = ''
-  firstName.value = ''
-  lastName.value = ''
-  title.value = ''
-  department.value = ''
-  country.value = ''
-  role.value = 'user'
+      successMessage.value = 'Profile request submitted successfully! An administrator will review your request.'
+      
+      // Reset form
+      email.value = ''
+      password.value = ''
+      confirmPassword.value = ''
+      firstName.value = ''
+      lastName.value = ''
+      title.value = ''
+      department.value = ''
+      location.value = ''
+      isAdmin.value = false
 
-  // Redirect to home after 3 seconds
-  setTimeout(() => {
-    router.push({ name: 'home' })
-  }, 3000)
+      router.push({ name: 'home' })
+    },
+    () => {}
+  )
 }
 
 // Cancel and go back to home
@@ -183,7 +186,7 @@ const handleCancel = () => {
 
           <div class="form-group">
             <label for="country" class="form-label">Country *</label>
-            <select id = "country" v-model="country" class="form-select">
+            <select id = "country" v-model="location" class="form-select">
               <option value="" disabled>Select your country</option>
               <option value="USA">United States</option>
               <option value="Japan">Japan</option>
@@ -194,12 +197,8 @@ const handleCancel = () => {
           </div>
 
           <div class="form-group">
-            <label for="role" class="form-label">User Role *</label>
-            <select id="role" v-model="role" class="form-select">
-              <option value="user">User</option>
-              <option value="contributor">Contributor</option>
-              <option value="manager">Manager</option>
-            </select>
+            <label for="isAdmin" class="form-label">User is Administrator *</label>
+            <input type="checkbox" id="isAdmin" v-model="isAdmin" class="form-checkbox" />
           </div>
         </div>
 

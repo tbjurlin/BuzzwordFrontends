@@ -5,19 +5,10 @@ import { useAuth } from '../stores/auth'
 import TopBar from '../components/TopBar.vue'
 
 const router = useRouter()
-const { currentUser, getUser, sendTokenTo } = useAuth()
+const { sendTokenTo } = useAuth()
 
 const brlUrl = import.meta.env.VITE_BRL_URL
 
-// Ensure user data is loaded when component mounts
-onMounted(() => {
-  getUser()
-
-  // If still no user after checkAuth, redirect to home
-  if (!currentUser.value) {
-    router.push({ name: 'home' })
-  }
-})
 
 // Function to access BRL app
 const accessBRL = () => {
@@ -54,7 +45,7 @@ const accessBRL = () => {
 <template>
   <TopBar />
   <div class="dashboard-container">
-    <div v-if="currentUser" class="dashboard-content">
+    <div class="dashboard-content">
       <!-- Connected Apps Box -->
       <div class="connected-apps-box">
         <h2 class="box-title">Connected Apps</h2>
@@ -174,10 +165,6 @@ const accessBRL = () => {
 
         </div>
       </div>
-    </div>
-
-    <div v-else class="loading-message">
-      <p>Loading dashboard...</p>
     </div>
   </div>
 </template>
